@@ -75,7 +75,8 @@
     "eslint-plugin-react": "^7.26.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.4.1",
-    "redux-devtools-extension": "^2.13.9"
+    "redux-devtools-extension": "^2.13.9",
+    "storybook-mobile": "^1.0.0"
   },
   "resolutions": {
     "babel-loader": "8.1.0"
