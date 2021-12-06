@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const name = 'user';
 
@@ -15,13 +15,13 @@ const initialValue = {
   isLoading: false,
 };
 
-const fetchUserLogin = createAsyncThunk(
-  `${name}/fetchUserLogin`,
-  async (user) => {
-    const { data } = await axios.post('/user/login', user);
-    console.log(data);
-  },
-);
+// const fetchUserLogin = createAsyncThunk(
+//   `${name}/fetchUserLogin`,
+//   async (user) => {
+//     const { data } = await axios.post('/user/login', user);
+//     console.log(data);
+//   },
+// );
 
 export const user = createSlice({
   name,

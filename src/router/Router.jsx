@@ -1,5 +1,5 @@
 import React, { BrowserRouter, Routes, Route } from 'react-router-dom';
-import DefaultTemplate from '../templates/DefaultTemplate';
+import DefaultTemplate from '@styles/DefaultTemplate';
 import ScrollToTop from '@utils/ScrollToTop';
 import { MainPage } from '@pages';
 

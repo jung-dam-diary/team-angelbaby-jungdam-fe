@@ -11,7 +11,7 @@ const persistConfig = {
   storage: session,
   //  user reducer만 localstorage에 저장.
   whitelist: ['user'],
-  // blacklist -> 그것만 제외합니다
+  // blacklist - 스토리지에 저장하지 않을 리스트
 };
 
 const combinedReducer = combineReducers({
