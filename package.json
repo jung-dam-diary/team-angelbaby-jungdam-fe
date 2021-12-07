@@ -65,6 +65,7 @@
     "@craco/craco": "^6.3.0",
     "@emotion/babel-plugin": "^11.3.0",
     "@emotion/babel-preset-css-prop": "^11.2.0",
+    "@iconify/react": "^3.1.0",
     "@storybook/addon-actions": "^6.4.7",
     "@storybook/addon-essentials": "^6.4.7",
     "@storybook/addon-links": "^6.4.7",
