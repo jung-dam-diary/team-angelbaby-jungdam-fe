@@ -1,8 +1,15 @@
 import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
 
-const IconComponent = ({ name, color, height }) => {
-  return <Icon icon={name} color={color} height={height} />;
+const IconComponent = ({ name, color, height, ...props }) => {
+  return (
+    <Icon
+      icon={name}
+      color={color}
+      height={height}
+      style={{ ...props.style }}
+    />
+  );
 };
 
 IconComponent.defaultProps = {
