@@ -1,4 +1,4 @@
-import Icon from '@components/base/Icon';
+import { Icon } from '@components/base';
 import color from '@assets/colors/Color';
 
 export default {
