@@ -5,6 +5,10 @@ const IconComponent = ({ name, color, height }) => {
   return <Icon icon={name} color={color} height={height} />;
 };
 
+IconComponent.defaultProps = {
+  height: 20,
+};
+
 IconComponent.propTypes = {
   name: PropTypes.string,
   color: PropTypes.string,

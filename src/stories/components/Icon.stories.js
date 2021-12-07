@@ -6,19 +6,19 @@ export default {
   component: Icon,
 };
 
-export const Assets = () => {
+export const Default = () => {
   return (
     <>
-      <Icon name="bx:bx-home-heart" color={color.brown} height={30} />
-      <Icon name="bx:bx-home-heart" color={color.grey} height={30} />
-      <Icon name="akar-icons:book" color={color.brown} height={30} />
-      <Icon name="akar-icons:book" color={color.grey} height={30} />
-      <Icon name="bi:pencil" color={color.brown} height={30} />
-      <Icon name="bi:pencil" color={color.grey} height={30} />
-      <Icon name="ic:outline-timeline" color={color.brown} height={30} />
-      <Icon name="ic:outline-timeline" color={color.grey} height={30} />
-      <Icon name="fluent:people-20-regular" color={color.brown} height={30} />
-      <Icon name="fluent:people-20-regular" color={color.grey} height={30} />
+      <Icon name="bx:bx-home-heart" color={color.brown} />
+      <Icon name="bx:bx-home-heart" color={color.grey} />
+      <Icon name="akar-icons:book" color={color.brown} />
+      <Icon name="akar-icons:book" color={color.grey} />
+      <Icon name="bi:pencil" color={color.brown} />
+      <Icon name="bi:pencil" color={color.grey} />
+      <Icon name="ic:outline-timeline" color={color.brown} />
+      <Icon name="ic:outline-timeline" color={color.grey} />
+      <Icon name="fluent:people-20-regular" color={color.brown} />
+      <Icon name="fluent:people-20-regular" color={color.grey} />
     </>
   );
 };
