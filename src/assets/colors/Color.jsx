@@ -1,4 +1,5 @@
 const color = {
+  beige: '#FCF1DD',
   black: '#352D1F', // primary
   black_30: '#352D1F33', // primary
   black_70: '#352D1FB2', // dim
