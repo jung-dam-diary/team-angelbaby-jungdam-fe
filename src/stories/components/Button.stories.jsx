@@ -61,3 +61,18 @@ export const Border = () => {
     </Container>
   );
 };
+
+export const OnClick = () => {
+  return (
+    <Container>
+      <Button
+        mode="primary"
+        onClick={() => {
+          alert('클릭됨');
+        }}
+      >
+        onClick Event 적용 여부 확인
+      </Button>
+    </Container>
+  );
+};
