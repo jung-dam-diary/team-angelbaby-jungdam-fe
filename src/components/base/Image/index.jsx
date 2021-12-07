@@ -5,8 +5,8 @@ const Image = ({ alt, block, width, height, mode, ...props }) => {
   const imageStyle = {
     width,
     height,
-    objectFit: mode, // cover, fill, contain
-    display: block ? 'block' : undefined,
+    objectFit: mode ?? 'fill', // cover, none, contain
+    display: block && 'block',
   };
 
   return <img alt={alt} style={{ ...props.style, ...imageStyle }} {...props} />;
@@ -19,5 +19,5 @@ Image.propTypes = {
   block: PropTypes.bool,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  mode: PropTypes.oneOf(['cover', 'fill', 'contain']),
+  mode: PropTypes.oneOf(['cover', 'none', 'contain']),
 };
