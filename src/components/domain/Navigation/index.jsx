@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { Icon } from '@components/base';
 import color from '@assets/colors';
+import font from '@assets/fonts';
 
 const Container = styled.nav`
   display: flex;
@@ -29,7 +30,7 @@ const NavLinkStyle = css`
   width: 20%;
   color: ${color.grey};
   text-decoration: none;
-  font-size: 12px;
+  ${font.content_12};
 
   &.active {
     color: ${color.brown};
