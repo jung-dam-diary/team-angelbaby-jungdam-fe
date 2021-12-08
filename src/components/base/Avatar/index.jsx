@@ -34,7 +34,7 @@ const Avatar = ({ size, src, ...props }) => {
 
 Avatar.defaultProps = {
   size: 'base',
-  src: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png',
+  src: 'https://cdn-icons.flaticon.com/png/512/2354/premium/2354573.png?token=exp=1638950397~hmac=9731e542cbe409f1e9207cc451749e82',
 };
 
 Avatar.propTypes = {
