@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { Icon } from '@components/base';
-import color from '@assets/colors/Color';
+import color from '@assets/colors';
 
 const Container = styled.nav`
   display: flex;
@@ -13,8 +13,8 @@ const Container = styled.nav`
   position: fixed;
   bottom: 0;
   z-index: 5;
-  background: #ffffff;
-  box-shadow: 0px 1px 4px rgba(100, 88, 71, 0.25);
+  background: ${color.white};
+  box-shadow: 0px 1px 4px ${color.brown_25};
 `;
 
 const Span = styled.span`
