@@ -34,4 +34,4 @@ jobs:
           aws s3 cp \
             --region ap-northeast-2 \
             --recursive \
-            build s3://jungdam-frontend-deploy
+            build s3://jungdam
