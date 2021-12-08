@@ -2,7 +2,7 @@ import { Avatar } from '@components/base';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  title: 'Component/Avatar',
+  title: 'Components/Avatar',
   component: Avatar,
 };
 
