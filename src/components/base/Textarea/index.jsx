@@ -12,14 +12,18 @@ const TextareaContainer = styled.textarea`
   outline: none;
   overflow: hidden;
   background-attachment: local;
-  background-image: linear-gradient(to right, white 10px, transparent 10px),
-    linear-gradient(to left, white 10px, transparent 10px),
+  background-image: linear-gradient(
+      to right,
+      ${color.white} 10px,
+      transparent 10px
+    ),
+    linear-gradient(to left, ${color.white} 10px, transparent 10px),
     repeating-linear-gradient(
-      white,
-      white 30px,
-      #ccc 30px,
-      #ccc 31px,
-      white 31px
+      ${color.white},
+      ${color.white} 30px,
+      ${color.black_30} 30px,
+      ${color.black_30} 31px,
+      ${color.white} 31px
     );
   ${font.content_16};
   line-height: 31px;
@@ -29,14 +33,7 @@ const TextareaContainer = styled.textarea`
   }
 `;
 
-const Textarea = ({
-  placeholder,
-  onChange,
-  value,
-  width,
-  height,
-  ...props
-}) => {
+const Textarea = ({ placeholder, onChange, width, height, ...props }) => {
   const ref = useRef();
 
   const textareaSize = {
@@ -67,7 +64,6 @@ const Textarea = ({
 Textarea.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
-  value: PropTypes.string,
   width: PropTypes.string,
   height: PropTypes.string,
   style: PropTypes.object,
@@ -76,7 +72,6 @@ Textarea.propTypes = {
 Textarea.defaultProps = {
   placeholder: '일기의 내용을 입력해주세요.',
   onChange: () => {},
-  value: '',
   width: '100%',
   height: '100px',
   style: {},
