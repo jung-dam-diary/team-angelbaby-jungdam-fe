@@ -7,16 +7,11 @@ const Router = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <DefaultTemplate>
-              <MainPage />
-            </DefaultTemplate>
-          }
-        />
-      </Routes>
+      <DefaultTemplate>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+        </Routes>
+      </DefaultTemplate>
     </BrowserRouter>
   );
 };

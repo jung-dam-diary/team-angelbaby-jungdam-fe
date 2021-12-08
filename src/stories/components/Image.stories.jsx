@@ -29,14 +29,14 @@ export const Cover = () => {
   );
 };
 
-export const Fill = () => {
+export const None = () => {
   return (
     <Image
       src="https://picsum.photos/300/600"
       width="200px"
       height="200px"
       alt="Image"
-      mode="fill"
+      mode="none"
     />
   );
 };
@@ -50,5 +50,28 @@ export const Contain = () => {
       alt="Image"
       mode="contain"
     />
+  );
+};
+
+export const Block = () => {
+  return (
+    <>
+      <Image
+        src="https://picsum.photos/300/600"
+        width="200px"
+        height="200px"
+        alt="Image"
+        mode="contain"
+        block
+      />
+      <Image
+        src="https://picsum.photos/300/600"
+        width="200px"
+        height="200px"
+        alt="Image"
+        mode="contain"
+        block
+      />
+    </>
   );
 };
