@@ -40,23 +40,23 @@ const Navigation = () => {
   return (
     <Container>
       <NavLink to="" css={NavLinkStyle}>
-        <Icon name="bx:bx-home-heart" height={40} />
+        <Icon name="bx:bx-home-heart" height={24} />
         <Span>홈</Span>
       </NavLink>
       <NavLink to="" css={NavLinkStyle}>
-        <Icon name="akar-icons:book" height={40} />
+        <Icon name="akar-icons:book" height={24} />
         <Span>스토리북</Span>
       </NavLink>
       <NavLink to="" css={NavLinkStyle}>
-        <Icon name="bi:pencil" height={40} />
+        <Icon name="bi:pencil" height={24} />
         <Span>일기 쓰기</Span>
       </NavLink>
       <NavLink to="" css={NavLinkStyle}>
-        <Icon name="ic:outline-timeline" height={40} />
+        <Icon name="ic:outline-timeline" height={24} />
         <Span>특별한 순간</Span>
       </NavLink>
       <NavLink to="" css={NavLinkStyle}>
-        <Icon name="fluent:people-20-regular" height={40} />
+        <Icon name="fluent:people-20-regular" height={24} />
         <Span>멤버 리스트</Span>
       </NavLink>
     </Container>
