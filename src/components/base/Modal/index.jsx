@@ -42,7 +42,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const Modal = ({ children, width, height, visible, onClose, ...props }) => {
+const Modal = ({ children, width, visible, onClose, ...props }) => {
   const ref = useClickAway(() => {
     onClose();
   });
@@ -50,9 +50,9 @@ const Modal = ({ children, width, height, visible, onClose, ...props }) => {
   const containerStyle = useMemo(() => {
     return {
       width,
-      height,
     };
-  }, [width, height]);
+  }, [width]);
+
   const el = useMemo(() => document.createElement('div'), []);
 
   useEffect(() => {
@@ -61,6 +61,21 @@ const Modal = ({ children, width, height, visible, onClose, ...props }) => {
       document.body.removeChild(el);
     };
   }, [el]);
+
+  useEffect(() => {
+    if (visible) {
+      document.body.style.cssText = `
+      position: fixed;
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+      return () => {
+        const scrollY = document.body.style.top;
+        document.body.style.cssText = '';
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      };
+    }
+  }, [visible]);
 
   return ReactDOM.createPortal(
     <BackgroundDim style={{ display: visible ? 'block' : 'none' }}>
@@ -83,7 +98,6 @@ const Modal = ({ children, width, height, visible, onClose, ...props }) => {
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   visible: PropTypes.bool,
   onClose: PropTypes.func,
   style: PropTypes.object,
@@ -93,6 +107,7 @@ Modal.defaultProps = {
   width: '60%',
   visible: false,
   onClose: () => {},
+  style: {},
 };
 
 export default Modal;
