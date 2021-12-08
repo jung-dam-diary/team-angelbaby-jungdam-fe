@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import font from '@assets/fonts';
 import color from '@assets/colors';
+import { useCallback, useRef } from 'react';
 
 const TextareaContainer = styled.textarea`
   padding: 8px 10px;
@@ -9,6 +10,7 @@ const TextareaContainer = styled.textarea`
   resize: none;
   box-sizing: border-box;
   outline: none;
+  overflow: hidden;
   background-attachment: local;
   background-image: linear-gradient(to right, white 10px, transparent 10px),
     linear-gradient(to left, white 10px, transparent 10px),
@@ -27,16 +29,35 @@ const TextareaContainer = styled.textarea`
   }
 `;
 
-const Textarea = ({ placeholder, onChange, width, height, ...props }) => {
+const Textarea = ({
+  placeholder,
+  onChange,
+  value,
+  width,
+  height,
+  ...props
+}) => {
+  const ref = useRef();
+
   const textareaSize = {
     width,
     height,
   };
 
+  const handleResizeHeight = useCallback(() => {
+    if (ref === null && ref.current === null) {
+      return;
+    }
+    ref.current.style.height = '100px';
+    ref.current.style.height = ref.current.scrollHeight + 'px';
+  }, []);
+
   return (
     <TextareaContainer
+      ref={ref}
       onChange={onChange}
       placeholder={placeholder}
+      onInput={handleResizeHeight}
       {...props}
       style={{ ...textareaSize, ...props.style }}
     />
@@ -46,6 +67,7 @@ const Textarea = ({ placeholder, onChange, width, height, ...props }) => {
 Textarea.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
+  value: PropTypes.string,
   width: PropTypes.string,
   height: PropTypes.string,
   style: PropTypes.object,
@@ -54,6 +76,7 @@ Textarea.propTypes = {
 Textarea.defaultProps = {
   placeholder: '일기의 내용을 입력해주세요.',
   onChange: () => {},
+  value: '',
   width: '100%',
   height: '100px',
   style: {},
