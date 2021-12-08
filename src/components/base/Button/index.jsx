@@ -12,6 +12,7 @@ const Root = styled.button`
   border: 0;
   background: none;
   cursor: pointer;
+  color: ${color.black};
   gap: ${({ gap }) => gap};
   &.primary {
     width: 100%;
