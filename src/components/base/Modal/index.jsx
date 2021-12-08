@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import color from '@assets/colors';
 import useClickAway from '@hooks/useClickAway';
+import { Button } from '@components/base';
 
 const BackgroundDim = styled.div`
   position: fixed;
@@ -35,12 +36,12 @@ const ButtonWrapper = styled.div`
   gap: 16px;
 `;
 
-const Button = styled.button`
-  border: none;
-  background-color: transparent;
-  padding: 0;
-  cursor: pointer;
-`;
+// const Button = styled.button`
+//   border: none;
+//   background-color: transparent;
+//   padding: 0;
+//   cursor: pointer;
+// `;
 
 const Modal = ({ children, width, visible, onClose, ...props }) => {
   const ref = useClickAway(() => {
