@@ -45,7 +45,7 @@ const Textarea = ({ placeholder, onChange, width, height, ...props }) => {
     if (ref === null && ref.current === null) {
       return;
     }
-    ref.current.style.height = '100px';
+    ref.current.style.height = '31px';
     ref.current.style.height = ref.current.scrollHeight + 'px';
   }, []);
 
@@ -73,7 +73,7 @@ Textarea.defaultProps = {
   placeholder: '일기의 내용을 입력해주세요.',
   onChange: () => {},
   width: '100%',
-  height: '100px',
+  height: '31px',
   style: {},
 };
 
