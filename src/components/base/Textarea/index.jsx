@@ -5,7 +5,7 @@ import color from '@assets/colors';
 import { useCallback, useRef } from 'react';
 
 const TextareaContainer = styled.textarea`
-  padding: 8px 10px;
+  padding: 6px 12px;
   border: none;
   resize: none;
   box-sizing: border-box;
