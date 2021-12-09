@@ -54,7 +54,7 @@ export const Contain = () => {
 
 export const Block = () => {
   return (
-    <>
+    <div>
       <Image
         src="https://picsum.photos/300/600"
         width="200px"
@@ -71,6 +71,6 @@ export const Block = () => {
         mode="contain"
         block
       />
-    </>
+    </div>
   );
 };

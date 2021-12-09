@@ -14,10 +14,10 @@ export default {
 
 export const Default = () => {
   return (
-    <>
+    <div>
       <Title>헤더1</Title>
       <Divider />
       <p>Content</p>
-    </>
+    </div>
   );
 };
