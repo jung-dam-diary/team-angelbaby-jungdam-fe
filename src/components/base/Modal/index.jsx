@@ -3,6 +3,7 @@ import { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import color from '@assets/colors';
+import font from '@assets/fonts';
 import useClickAway from '@hooks/useClickAway';
 import { Button } from '@components/base';
 
@@ -27,21 +28,15 @@ const ModalContainer = styled.div`
   box-sizing: border-box;
   padding: 40px 32px;
   text-align: center;
+  ${font.content_16};
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 38px;
-  gap: 16px;
+  gap: 32px;
 `;
-
-// const Button = styled.button`
-//   border: none;
-//   background-color: transparent;
-//   padding: 0;
-//   cursor: pointer;
-// `;
 
 const Modal = ({ children, width, visible, onClose, ...props }) => {
   const ref = useClickAway(() => {
