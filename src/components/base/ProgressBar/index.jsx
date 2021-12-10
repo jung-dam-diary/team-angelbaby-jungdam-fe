@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import color from '@assets/colors';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
   width: 100%;
@@ -37,6 +38,11 @@ const renderHighLight = (totalStep, currentStep) => {
 
 const ProgressBar = ({ totalStep, currentStep }) => {
   return <Container>{renderHighLight(totalStep, currentStep)}</Container>;
+};
+
+ProgressBar.propTypes = {
+  totalStep: PropTypes.number.isRequired,
+  currentStep: PropTypes.number.isRequired,
 };
 
 export default ProgressBar;
