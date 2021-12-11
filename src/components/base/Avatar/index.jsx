@@ -6,6 +6,7 @@ import defaultUser from '@assets/Image/defaultUser.png';
 
 const Sizes = {
   large: '80px',
+  medium: '50px',
   base: '32px',
 };
 
@@ -26,20 +27,22 @@ const AvatarWrapper = styled.div`
 `;
 
 const Avatar = ({ size, src, ...props }) => {
+  const avatarSrc = src === '' ? defaultUser : src;
+
   return (
     <AvatarWrapper {...props} size={size}>
-      <Image src={src} alt="userProfile" mode="cover" />
+      <Image src={avatarSrc} alt="userProfile" mode="cover" />
     </AvatarWrapper>
   );
 };
 
 Avatar.defaultProps = {
   size: 'base',
-  src: defaultUser,
+  src: '',
 };
 
 Avatar.propTypes = {
-  size: PropTypes.oneOf(['base', 'large']),
+  size: PropTypes.oneOf(['base', 'medium', 'large']),
   src: PropTypes.string,
 };
 
