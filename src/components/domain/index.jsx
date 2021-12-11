@@ -7,3 +7,4 @@ export {
   OnlyInfoHeader,
 } from './Header';
 export { default as LandingSwiper } from './LandingSwiper';
+export { default as UserCard } from './UserCard';
