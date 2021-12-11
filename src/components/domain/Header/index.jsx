@@ -5,6 +5,7 @@ import color from '@assets/colors';
 import font from '@assets/fonts';
 import Logo from '@assets/Image/Logo.svg';
 import { useNavigate } from 'react-router';
+import PropTypes from 'prop-types';
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -99,14 +100,32 @@ export const MainHeader = ({ groupTitle, familyMotto, role }) => {
   );
 };
 
-export const ServiceInfoHeader = () => {
+MainHeader.propTypes = {
+  groupTitle: PropTypes.string.isRequired,
+  familyMotto: PropTypes.string.isRequired,
+  role: PropTypes.oneOf(['OWNER', 'MEMBER']),
+};
+
+MainHeader.defaultProps = {
+  role: 'MEMBER',
+};
+
+export const ServiceInfoHeader = ({ src }) => {
   return (
     <Header
       style={{ boxShadow: `0px 1px 4px rgba(100, 88, 71, 0.25)` }}
       leftComponent={<Image src={Logo} alt="logo" block width="38px" />}
-      rightComponent={<Avatar />}
+      rightComponent={<Avatar src={src} />}
     />
   );
+};
+
+ServiceInfoHeader.propTypes = {
+  src: PropTypes.string,
+};
+
+ServiceInfoHeader.defaultProps = {
+  src: '',
 };
 
 export const DetailPageHeader = ({ pageTitle }) => {
@@ -127,6 +146,10 @@ export const DetailPageHeader = ({ pageTitle }) => {
   );
 };
 
+DetailPageHeader.propTypes = {
+  pageTitle: PropTypes.string.isRequired,
+};
+
 export const OnlyInfoHeader = ({ pageTitle }) => {
   return (
     <Header
@@ -134,4 +157,8 @@ export const OnlyInfoHeader = ({ pageTitle }) => {
       leftComponent={<HeadingContent>{pageTitle}</HeadingContent>}
     />
   );
+};
+
+OnlyInfoHeader.propTypes = {
+  pageTitle: PropTypes.string.isRequired,
 };
