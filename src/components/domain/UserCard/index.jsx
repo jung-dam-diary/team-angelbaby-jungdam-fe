@@ -21,9 +21,9 @@ const UserCard = ({ nickname, avatar, role }) => {
     <CardWrapper>
       <Avatar src={avatar} size="base" />
       <TextContent>{nickname}</TextContent>
-      {role === 'OWNER' ? (
+      {role === 'OWNER' && (
         <TextContent style={{ fontSize: 12 }}>관리자</TextContent>
-      ) : null}
+      )}
     </CardWrapper>
   );
 };
