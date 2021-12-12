@@ -18,6 +18,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   margin: 0;
   padding: 0 32px 0 32px;
+  background-color: ${color.white};
 `;
 
 const HeaderContent = styled.div`
