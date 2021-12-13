@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import PropTypes from 'prop-types';
 import font from '@assets/fonts';
 import color from '@assets/colors';
+import { forwardRef } from 'react';
 
 const Root = styled.button`
   display: flex;
@@ -35,10 +36,19 @@ const Root = styled.button`
 // mode : 기본 꽉찬 버튼 (Primary), 선 있는 버튼 (Border)
 // bgColor : 배경 컬러
 // gap : 버튼 안의 요소 사이의 간격
-const Button = ({ children, mode, bgColor, gap = '2px', ...props }) => (
-  <Root type="button" bgColor={bgColor} className={mode} gap={gap} {...props}>
-    {children}
-  </Root>
+const Button = forwardRef(
+  ({ children, mode, bgColor, gap = '2px', ...props }, ref) => (
+    <Root
+      type="button"
+      bgColor={bgColor}
+      className={mode}
+      gap={gap}
+      ref={ref}
+      {...props}
+    >
+      {children}
+    </Root>
+  ),
 );
 
 export default Button;

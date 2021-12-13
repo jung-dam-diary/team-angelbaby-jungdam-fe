@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import color from '@assets/colors';
 import font from '@assets/fonts';
+import { forwardRef } from 'react';
 
 const inputSizes = {
   sm: `${font.content_12}`,
@@ -40,28 +41,31 @@ const StyledInput = styled.input`
   }
 `;
 
-const Input = ({ width, onChange, size, name, error, success, ...props }) => {
-  let status = '';
+const Input = forwardRef(
+  ({ width, onChange, size, name, error, success, ...props }, ref) => {
+    let status = '';
 
-  if (error) {
-    status = 'error';
-  }
-  if (success) {
-    status = 'success';
-  }
+    if (error) {
+      status = 'error';
+    }
+    if (success) {
+      status = 'success';
+    }
 
-  return (
-    <StyledInput
-      onChange={onChange}
-      name={name}
-      size={size}
-      width={width}
-      className={status || undefined}
-      {...props}
-      style={{ ...props.style }}
-    />
-  );
-};
+    return (
+      <StyledInput
+        onChange={onChange}
+        name={name}
+        size={size}
+        width={width}
+        className={status || undefined}
+        {...props}
+        style={{ ...props.style }}
+        ref={ref}
+      />
+    );
+  },
+);
 
 Input.propTypes = {
   width: PropTypes.string,
