@@ -15,6 +15,7 @@ const Container = styled.div`
 
 const HighLight = styled.div`
   width: ${({ width }) => width};
+  height: 5px;
   border-radius: 4px;
   background: ${({ active }) => (active ? color.brown : color.grey)};
 `;
@@ -29,6 +30,7 @@ const renderHighLight = (totalStep, currentStep) => {
         key={i}
         width={calculateWidth}
         active={i < currentStep && true}
+        className="bar"
       />,
     );
   }
