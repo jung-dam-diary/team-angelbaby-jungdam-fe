@@ -2,7 +2,11 @@ import React from 'react';
 import styled from '@emotion/styled';
 import color from '@assets/colors';
 import DefaultContainer from '@styles/DefaultContainer';
-import { API_POINT } from '@utils/constants';
+import {
+  GOOGLE_AUTH_URL,
+  KAKAO_AUTH_URL,
+  NAVER_AUTH_URL,
+} from '@utils/constants';
 import { Button, Image } from '@components/base';
 import google from '@assets/Image/google.png';
 import kakao from '@assets/Image/kakao.png';
@@ -20,21 +24,21 @@ const SOCIAL_LOGIN_BUTTON_LIST = [
     name: 'naver',
     label: 'Naver',
     icon: naver,
-    link: `${API_POINT}/oauth2/authorization/naver?redirect_uri=http://localhost:3000/oauth/redirect`,
+    link: NAVER_AUTH_URL,
     bgColor: '#03C75A',
   },
   {
     name: 'kakao',
     label: 'Kakao',
     icon: kakao,
-    link: `${API_POINT}/oauth2/authorization/kakao?redirect_uri=http://localhost:3000/oauth/redirect`,
+    link: KAKAO_AUTH_URL,
     bgColor: '#FEE500',
   },
   {
     name: 'google',
     label: 'Google',
     icon: google,
-    link: `${API_POINT}/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth/redirect`,
+    link: GOOGLE_AUTH_URL,
     bgColor: color.white,
   },
 ];
@@ -69,6 +73,7 @@ const LoginPage = () => {
         bgColor={bgColor}
         onClick={handleLogin}
         gap="10px"
+        disabled={name === 'naver' && true}
       >
         <Image
           src={icon}
