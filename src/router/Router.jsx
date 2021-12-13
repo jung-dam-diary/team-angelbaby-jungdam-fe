@@ -25,10 +25,24 @@ const Router = () => {
           </Route>
           {/* AuthRoute - Token이 존재해야 접속 가능함. */}
           <Route element={<AuthRoute />}>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/album" element={<MainPage />} />
-            <Route path="/diary" element={<DiaryPage />} />
-            <Route path="/diary/new" element={<DiaryCreatePage />} />
+            {/* <Route path="/album" element={<AlbumListPage />}> */}
+            {/* <Route path="new" element={<AlbumCreatePage />} /> */}
+            {/* <Route path="profile" element={<ProfilePage />} /> */}
+            {/* </Route> */}
+            {/* <Route path="/album/:albumId" element={<AlbumMainPage />}> */}
+            {/* <Route path="diary"> */}
+            {/* <Route path=":diaryId" element={<DiaryCreatePage />} /> */}
+            {/* <Route path="new" element={<DiaryCreatePage />} /> */}
+            {/* </Route> */}
+            {/* <Route path="members" element={<MemberListPage />}> */}
+            {/* <Route path="invite" element={<MemberInvitePage />} /> */}
+            {/* </Route> */}
+            {/* <Route path="settings" element={<AlbumSettingPage />}> */}
+            {/* <Route path="edit" element={<AlbumSettingEditPage />} /> */}
+            {/* </Route> */}
+            {/* <Route path="storybook" element={<StorybookPage />} /> */}
+            {/* <Route path="moment" element={<SpecialMomentPage />} /> */}
+            {/* </Route> */}
           </Route>
           {/* 임시 404 페이지 */}
           <Route path="*" element={<div>404 Page</div>} />
