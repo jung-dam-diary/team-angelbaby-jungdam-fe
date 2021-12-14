@@ -31,14 +31,14 @@ const Router = () => {
             {/* </Route> */}
             {/* <Route path="/album/:albumId" element={<AlbumMainPage />}> */}
             {/* <Route path="diary"> */}
-            {/* <Route path=":diaryId" element={<DiaryCreatePage />} /> */}
+            {/* <Route path=":diaryId" element={<DiaryPage />} /> */}
             {/* <Route path="new" element={<DiaryCreatePage />} /> */}
             {/* </Route> */}
             {/* <Route path="members" element={<MemberListPage />}> */}
             {/* <Route path="invite" element={<MemberInvitePage />} /> */}
             {/* </Route> */}
-            {/* <Route path="settings" element={<AlbumSettingPage />}> */}
-            {/* <Route path="edit" element={<AlbumSettingEditPage />} /> */}
+            {/* <Route path="settings" element={<AlbumSettingsPage />}> */}
+            {/* <Route path="edit" element={<AlbumSettingsEditPage />} /> */}
             {/* </Route> */}
             {/* <Route path="storybook" element={<StorybookPage />} /> */}
             {/* <Route path="moment" element={<SpecialMomentPage />} /> */}
