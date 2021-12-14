@@ -40,6 +40,7 @@ const ContentWrapper = styled.div`
   margin-bottom: 42px;
 `;
 const ContentTitle = styled.span`
+  padding: 0;
   ${font.content_16}
 `;
 

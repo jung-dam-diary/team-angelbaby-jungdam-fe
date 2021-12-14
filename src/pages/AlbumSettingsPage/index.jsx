@@ -21,6 +21,7 @@ const AlbumSettingsPageWrapper = styled(DefaultContainer)`
 `;
 
 const AlbumSettingsTitle = styled.div`
+  padding: 0;
   ${font.heading_20}
 `;
 
