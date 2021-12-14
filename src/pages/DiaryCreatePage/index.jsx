@@ -37,7 +37,7 @@ const DiaryCreatePage = () => {
       photos: '',
     },
   });
-  console.log(values);
+
   useLayoutEffect(() => {
     const detectMobileKeyboard = () => {
       const activeElement = document.activeElement;
@@ -71,10 +71,6 @@ const DiaryCreatePage = () => {
     navigate('../diary');
   };
 
-  // const handleCreateDateChange = (value) => {
-  //   setCreateDate(() => value);
-  // };
-  // console.log(createDate);
   const leftHeaderContent = () => {
     return (
       <>
@@ -104,7 +100,9 @@ const DiaryCreatePage = () => {
     } else if (step === 2) {
       return <DiaryCreateStepTwo onChange={handleChange} />;
     } else if (step === 3) {
-      return <DiaryCreateStepThree onChange={handleChange} />;
+      return (
+        <DiaryCreateStepThree onChange={handleChange} photos={values.photos} />
+      );
     }
   };
 

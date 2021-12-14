@@ -1,19 +1,18 @@
-const getUploadImageUrls = (images) => {
+const getUploadImageUrls = (images, setValues, name) => {
   const imageUrls = [];
 
   for (let i = 0; i < images.length; i++) {
     const image = images[i];
 
-    const fileReader = new FileReader();
-
-    fileReader.onload = () => {
-      imageUrls.push(fileReader.result);
-    };
+    let fileReader = new FileReader();
 
     fileReader.readAsDataURL(image);
-  }
 
-  return imageUrls;
+    fileReader.onloadend = () => {
+      imageUrls.push(fileReader.result);
+      setValues((value) => ({ ...value, [name]: imageUrls }));
+    };
+  }
 };
 
 export default getUploadImageUrls;

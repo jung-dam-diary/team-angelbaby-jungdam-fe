@@ -9,9 +9,7 @@ const useForm = ({ initialValues, onSubmit }) => {
     const { name, value, files } = e.target;
 
     if (files) {
-      const imageUrls = getUploadImageUrls(files);
-
-      setValues({ ...values, [name]: imageUrls });
+      getUploadImageUrls(files, setValues, name);
     } else {
       setValues({ ...values, [name]: value });
     }

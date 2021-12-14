@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { Upload, Icon, Image } from '@components/base';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -46,7 +46,7 @@ const StyledSwiper = styled(Swiper)`
   border-radius: 5px;
 `;
 
-const DiaryCreateStepThree = ({ onChange }) => {
+const DiaryCreateStepThree = ({ onChange, photos }) => {
   const swiperParams = {
     pagination: true,
   };
@@ -66,15 +66,15 @@ const DiaryCreateStepThree = ({ onChange }) => {
         />
       </Upload>
 
-      {/* {images && (
+      {photos && (
         <StyledSwiper {...swiperParams}>
-          {images.map((image, index) => (
+          {photos.map((photo, index) => (
             <SwiperSlide key={index}>
-              <Image src={image} alt="image" width="100%" height="100%" />
+              <Image src={photo} alt="image" width="100%" height="100%" />
             </SwiperSlide>
           ))}
         </StyledSwiper>
-      )} */}
+      )}
     </Container>
   );
 };
