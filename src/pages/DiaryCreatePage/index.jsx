@@ -12,6 +12,7 @@ import { Button, Icon, ProgressBar } from '@components/base';
 import font from '@assets/fonts';
 import color from '@assets/colors';
 import DefaultContainer from '@styles/DefaultContainer';
+import useForm from '@hooks/useForm';
 
 const DefaultMarginTop = css`
   margin: 80px 0 80px 0;
@@ -26,11 +27,17 @@ const ButtonStyle = {
 
 const DiaryCreatePage = () => {
   const [step, setStep] = useState(1);
-  const [createDate, setCreateDate] = useState(null);
   const navigate = useNavigate();
-
   const buttonRef = useRef();
-
+  const { values, handleChange } = useForm({
+    initialValues: {
+      date: '',
+      title: '',
+      content: '',
+      photos: '',
+    },
+  });
+  console.log(values);
   useLayoutEffect(() => {
     const detectMobileKeyboard = () => {
       const activeElement = document.activeElement;
@@ -64,10 +71,10 @@ const DiaryCreatePage = () => {
     navigate('../diary');
   };
 
-  const handleCreateDateChange = (value) => {
-    setCreateDate(() => value);
-  };
-  console.log(createDate);
+  // const handleCreateDateChange = (value) => {
+  //   setCreateDate(() => value);
+  // };
+  // console.log(createDate);
   const leftHeaderContent = () => {
     return (
       <>
@@ -93,11 +100,11 @@ const DiaryCreatePage = () => {
 
   const renderDiaryCreateForm = () => {
     if (step === 1) {
-      return <DiaryCreateStepOne handleChange={handleCreateDateChange} />;
+      return <DiaryCreateStepOne onChange={handleChange} />;
     } else if (step === 2) {
-      return <DiaryCreateStepTwo />;
+      return <DiaryCreateStepTwo onChange={handleChange} />;
     } else if (step === 3) {
-      return <DiaryCreateStepThree />;
+      return <DiaryCreateStepThree onChange={handleChange} />;
     }
   };
 

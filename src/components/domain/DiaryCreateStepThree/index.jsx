@@ -47,28 +47,6 @@ const StyledSwiper = styled(Swiper)`
 `;
 
 const DiaryCreateStepThree = ({ onChange }) => {
-  const [images, setImages] = useState(null);
-  const handleUploadImagesChange = useCallback(
-    (images) => {
-      const imageUrls = [];
-
-      for (let i = 0; i < images.length; i++) {
-        const image = images[i];
-
-        const fileReader = new FileReader();
-
-        fileReader.onload = () => {
-          imageUrls.push(fileReader.result);
-          setImages([...imageUrls]);
-          onChange && onChange(imageUrls);
-        };
-
-        fileReader.readAsDataURL(image);
-      }
-    },
-    [onChange],
-  );
-
   const swiperParams = {
     pagination: true,
   };
@@ -79,7 +57,7 @@ const DiaryCreateStepThree = ({ onChange }) => {
       <Title className="subtitle">
         여러장의 사진을 동시에 저장할 수 있어요 !
       </Title>
-      <Upload onChange={handleUploadImagesChange}>
+      <Upload onChange={onChange}>
         <Icon
           name="fluent:camera-add-24-regular"
           height={48}
@@ -88,7 +66,7 @@ const DiaryCreateStepThree = ({ onChange }) => {
         />
       </Upload>
 
-      {images && (
+      {/* {images && (
         <StyledSwiper {...swiperParams}>
           {images.map((image, index) => (
             <SwiperSlide key={index}>
@@ -96,7 +74,7 @@ const DiaryCreateStepThree = ({ onChange }) => {
             </SwiperSlide>
           ))}
         </StyledSwiper>
-      )}
+      )} */}
     </Container>
   );
 };

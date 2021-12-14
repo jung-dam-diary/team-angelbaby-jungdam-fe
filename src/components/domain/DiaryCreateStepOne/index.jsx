@@ -12,11 +12,7 @@ const Title = styled.span`
   ${font.heading_24};
 `;
 
-const DiaryCreateStepOne = ({ handleChange }) => {
-  const onChange = (e) => {
-    handleChange(e.target.value);
-  };
-
+const DiaryCreateStepOne = ({ onChange }) => {
   const getTodayDate = () => {
     let today = new Date();
     let dd = today.getDate();
@@ -41,7 +37,7 @@ const DiaryCreateStepOne = ({ handleChange }) => {
       <Title>날짜를 선택해주세요.</Title>
       <Input
         type="date"
-        name="Date"
+        name="date"
         onChange={onChange}
         css={font.content_16}
         max={getTodayDate()}
