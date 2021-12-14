@@ -12,7 +12,7 @@ const Title = styled.span`
   ${font.heading_24};
 `;
 
-const DiaryCreateStepOne = ({ onChange }) => {
+const DiaryCreateStepOne = ({ onChange, date }) => {
   const getTodayDate = () => {
     let today = new Date();
     let dd = today.getDate();
@@ -41,6 +41,7 @@ const DiaryCreateStepOne = ({ onChange }) => {
         onChange={onChange}
         css={font.content_16}
         max={getTodayDate()}
+        value={date}
       />
     </Container>
   );

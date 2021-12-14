@@ -97,7 +97,7 @@ const DiaryCreatePage = () => {
 
   const renderDiaryCreateForm = () => {
     if (step === 1) {
-      return <DiaryCreateStepOne onChange={handleChange} />;
+      return <DiaryCreateStepOne onChange={handleChange} date={date} />;
     } else if (step === 2) {
       return (
         <DiaryCreateStepTwo
