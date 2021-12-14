@@ -71,7 +71,8 @@ const AlbumSettingsPage = () => {
       <SettingsList onClick={OpenDeleteModal}>앨범 삭제</SettingsList>
       <Divider size={6} />
       <Modal visible={deleteModalVisible} onClose={CloseDeleteModal}>
-        정말로 앨범을 삭제하시겠습니까?
+        정말로 앨범을 <br />
+        삭제하시겠습니까?
       </Modal>
     </AlbumSettingsPageWrapper>
   );
