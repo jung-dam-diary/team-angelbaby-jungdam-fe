@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import font from '@assets/fonts';
 import { Input, Textarea } from '@components/base';
-import { forwardRef } from 'react';
 
 const Container = styled.div`
   display: flex;
@@ -19,7 +18,7 @@ const InputStyle = css`
   ${font.content_16}
 `;
 
-const DiaryCreateStepTwo = forwardRef((_, ref) => {
+const DiaryCreateStepTwo = () => {
   const onChange = (e) => {
     console.log(e.target.value);
   };
@@ -33,7 +32,6 @@ const DiaryCreateStepTwo = forwardRef((_, ref) => {
         onChange={onChange}
         placeholder="제목을 입력해주세요."
         css={InputStyle}
-        ref={ref}
         autoComplete="off"
       />
 
@@ -41,6 +39,6 @@ const DiaryCreateStepTwo = forwardRef((_, ref) => {
       <Textarea />
     </Container>
   );
-});
+};
 
 export default DiaryCreateStepTwo;

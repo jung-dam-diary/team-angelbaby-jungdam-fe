@@ -28,23 +28,23 @@ const DiaryCreatePage = () => {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
 
-  const titleRef = useRef();
   const buttonRef = useRef();
 
   useLayoutEffect(() => {
     const detectMobileKeyboard = () => {
-      if (document.activeElement.tagName === 'INPUT') {
-        titleRef.current.focus();
-        titleRef.current.scrollIntoView({ block: 'end' });
-        buttonRef.current.style.display =
-          buttonRef.current.style.display === 'none' ? 'block' : 'none';
-      }
+      const activeElement = document.activeElement;
+
+      activeElement.focus();
+      activeElement.scrollIntoView({ block: 'end' });
+
+      buttonRef.current.style.display =
+        buttonRef.current.style.display === 'none' ? 'block' : 'none';
     };
 
     window.addEventListener('resize', detectMobileKeyboard);
 
     return () => window.removeEventListener('resize', detectMobileKeyboard);
-  }, [step]);
+  }, []);
 
   const handleNextButtonClick = () => {
     setStep(() => step + 1);
@@ -90,7 +90,7 @@ const DiaryCreatePage = () => {
     if (step === 1) {
       return <DiaryCreateStepOne />;
     } else if (step === 2) {
-      return <DiaryCreateStepTwo ref={titleRef} />;
+      return <DiaryCreateStepTwo />;
     } else if (step === 3) {
       return <DiaryCreateStepThree />;
     }
