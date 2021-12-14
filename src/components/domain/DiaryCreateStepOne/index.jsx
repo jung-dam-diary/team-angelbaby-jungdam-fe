@@ -12,9 +12,9 @@ const Title = styled.span`
   ${font.heading_24};
 `;
 
-const DiaryCreateStepOne = () => {
+const DiaryCreateStepOne = ({ handleChange }) => {
   const onChange = (e) => {
-    console.log(e.target.value);
+    handleChange(e.target.value);
   };
 
   const getTodayDate = () => {

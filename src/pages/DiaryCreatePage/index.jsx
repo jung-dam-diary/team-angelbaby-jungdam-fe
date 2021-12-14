@@ -26,6 +26,7 @@ const ButtonStyle = {
 
 const DiaryCreatePage = () => {
   const [step, setStep] = useState(1);
+  const [createDate, setCreateDate] = useState(null);
   const navigate = useNavigate();
 
   const buttonRef = useRef();
@@ -63,6 +64,10 @@ const DiaryCreatePage = () => {
     navigate('../diary');
   };
 
+  const handleCreateDateChange = (value) => {
+    setCreateDate(() => value);
+  };
+  console.log(createDate);
   const leftHeaderContent = () => {
     return (
       <>
@@ -88,7 +93,7 @@ const DiaryCreatePage = () => {
 
   const renderDiaryCreateForm = () => {
     if (step === 1) {
-      return <DiaryCreateStepOne />;
+      return <DiaryCreateStepOne handleChange={handleCreateDateChange} />;
     } else if (step === 2) {
       return <DiaryCreateStepTwo />;
     } else if (step === 3) {
