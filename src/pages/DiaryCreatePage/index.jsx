@@ -37,6 +37,7 @@ const DiaryCreatePage = () => {
       photos: '',
     },
   });
+  const { date, title, content, photos } = values;
 
   useLayoutEffect(() => {
     const detectMobileKeyboard = () => {
@@ -98,11 +99,15 @@ const DiaryCreatePage = () => {
     if (step === 1) {
       return <DiaryCreateStepOne onChange={handleChange} />;
     } else if (step === 2) {
-      return <DiaryCreateStepTwo onChange={handleChange} />;
-    } else if (step === 3) {
       return (
-        <DiaryCreateStepThree onChange={handleChange} photos={values.photos} />
+        <DiaryCreateStepTwo
+          onChange={handleChange}
+          title={title}
+          content={content}
+        />
       );
+    } else if (step === 3) {
+      return <DiaryCreateStepThree onChange={handleChange} photos={photos} />;
     }
   };
 

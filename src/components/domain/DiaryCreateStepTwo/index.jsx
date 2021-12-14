@@ -18,11 +18,7 @@ const InputStyle = css`
   ${font.content_16}
 `;
 
-const DiaryCreateStepTwo = ({ onChange }) => {
-  // const onChange = (e) => {
-  //   console.log(e.target.value);
-  // };
-
+const DiaryCreateStepTwo = ({ onChange, title, content }) => {
   return (
     <Container>
       <Title>제목을 입력해주세요.</Title>
@@ -33,10 +29,11 @@ const DiaryCreateStepTwo = ({ onChange }) => {
         placeholder="제목을 입력해주세요."
         css={InputStyle}
         autoComplete="off"
+        value={title}
       />
 
       <Title>일기장을 적어볼까요 ?</Title>
-      <Textarea name="content" onChange={onChange} />
+      <Textarea name="content" onChange={onChange} value={content} />
     </Container>
   );
 };
