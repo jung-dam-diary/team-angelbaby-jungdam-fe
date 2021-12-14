@@ -1,12 +1,20 @@
 import { useState } from 'react';
+import getUploadImageUrls from '@utils/getUploadImageUrls';
 
 const useForm = ({ initialValues, onSubmit }) => {
   const [values, setValues] = useState(initialValues);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues({ ...values, [name]: value });
+    const { name, value, files } = e.target;
+
+    if (files) {
+      const imageUrls = getUploadImageUrls(files);
+
+      setValues({ ...values, [name]: imageUrls });
+    } else {
+      setValues({ ...values, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
