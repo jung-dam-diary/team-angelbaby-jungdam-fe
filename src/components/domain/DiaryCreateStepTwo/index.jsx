@@ -8,20 +8,37 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.span`
-  margin-bottom: 20px;
+const TitleHeading = styled.span`
+  margin-bottom: 10px;
   ${font.heading_24};
 `;
 
 const InputStyle = css`
-  margin-bottom: 40px;
+  margin-bottom: 0px;
   ${font.content_16}
 `;
 
-const DiaryCreateStepTwo = ({ onChange, title, content }) => {
+const ContentHeading = styled.span`
+  margin-top: ${({ error }) => (error ? '15px' : '35px')};
+  ${font.heading_24};
+`;
+
+const ErrorText = styled.span`
+  margin-top: 5px;
+  font-size: 14px;
+  color: red;
+`;
+
+const DiaryCreateStepTwo = ({
+  onChange,
+  title,
+  content,
+  titleError,
+  contentError,
+}) => {
   return (
     <Container>
-      <Title>제목을 입력해주세요.</Title>
+      <TitleHeading>제목을 입력해주세요.</TitleHeading>
       <Input
         type="Default"
         name="title"
@@ -31,8 +48,14 @@ const DiaryCreateStepTwo = ({ onChange, title, content }) => {
         autoComplete="off"
         value={title}
       />
+      {titleError && <ErrorText>{titleError}</ErrorText>}
 
-      <Title>일기장을 적어볼까요 ?</Title>
+      <ContentHeading error={titleError && true}>
+        일기장을 적어볼까요 ?
+      </ContentHeading>
+
+      {contentError && <ErrorText>{contentError}</ErrorText>}
+
       <Textarea
         name="content"
         onChange={onChange}

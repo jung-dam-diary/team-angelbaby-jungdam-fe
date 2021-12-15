@@ -41,6 +41,9 @@ const DiaryCreatePage = () => {
   });
   const { date, title, content, photos } = values;
 
+  const [inputErrors, setInputErrors] = useState({});
+  const { titleError, contentError } = inputErrors;
+
   useLayoutEffect(() => {
     const detectMobileKeyboard = () => {
       const activeElement = document.activeElement;
@@ -58,6 +61,31 @@ const DiaryCreatePage = () => {
   }, []);
 
   const handleNextButtonClick = () => {
+    if (step === 2) {
+      if (title.length === 0) {
+        setInputErrors((values) => ({
+          ...values,
+          titleError: '제목을 작성해주세요.',
+        }));
+      } else if (title.length > 30) {
+        setInputErrors((values) => ({
+          ...values,
+          titleError: '제목은 30자 이내로 작성해주세요.',
+        }));
+
+        return;
+      }
+
+      if (content.length === 0) {
+        setInputErrors((values) => ({
+          ...values,
+          contentError: '일기를 작성해주세요.',
+        }));
+
+        return;
+      }
+    }
+
     setStep(() => step + 1);
   };
 
@@ -132,6 +160,8 @@ const DiaryCreatePage = () => {
           onChange={handleChange}
           title={title}
           content={content}
+          titleError={titleError}
+          contentError={contentError}
         />
       );
     } else if (step === 3) {
