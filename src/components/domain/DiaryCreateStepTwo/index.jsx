@@ -33,7 +33,12 @@ const DiaryCreateStepTwo = ({ onChange, title, content }) => {
       />
 
       <Title>일기장을 적어볼까요 ?</Title>
-      <Textarea name="content" onChange={onChange} value={content} />
+      <Textarea
+        name="content"
+        onChange={onChange}
+        value={content}
+        height={'30vh'}
+      />
     </Container>
   );
 };
