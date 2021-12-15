@@ -4,6 +4,8 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import color from '@assets/colors';
 import font from '@assets/fonts';
+import { useState, useEffect } from 'react';
+import getBase64ToFile from '@utils/getBase64ToFile';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -47,6 +49,12 @@ const StyledSwiper = styled(Swiper)`
 `;
 
 const DiaryCreateStepThree = ({ onChange, photos }) => {
+  const [base64, setBase64] = useState([]);
+
+  useEffect(() => {
+    getBase64ToFile(photos, setBase64);
+  }, [photos]);
+
   const swiperParams = {
     pagination: true,
   };
@@ -66,11 +74,11 @@ const DiaryCreateStepThree = ({ onChange, photos }) => {
         />
       </Upload>
 
-      {photos && (
+      {base64 && (
         <StyledSwiper {...swiperParams}>
-          {photos.map((photo, index) => (
+          {base64.map((info, index) => (
             <SwiperSlide key={index}>
-              <Image src={photo} alt="image" width="100%" height="100%" />
+              <Image src={info} alt="image" width="100%" height="100%" />
             </SwiperSlide>
           ))}
         </StyledSwiper>
