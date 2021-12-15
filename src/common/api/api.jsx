@@ -1,10 +1,10 @@
 import axios from 'axios';
-
+import { API_POINT } from '@utils/constants';
 // axios 베이스 URL 설정 예정
 // CRA에서 환경 변수 사용하기 위해서는 REACT_APP_이 접두어로 꼭 붙어야함.
-// axios.defaults.baseURL = API_POINT;
+axios.defaults.baseURL = API_POINT;
 
-const Api = ({
+const api = ({
   url,
   type = 'GET',
   params,
@@ -28,9 +28,9 @@ const Api = ({
   return axios({
     method: type,
     url: `${url}`,
-    headers,
     data: params,
+    headers,
   });
 };
 
-export default Api;
+export default api;
