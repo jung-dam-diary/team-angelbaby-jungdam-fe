@@ -74,6 +74,11 @@ const DiaryCreatePage = () => {
         }));
 
         return;
+      } else {
+        setInputErrors((values) => ({
+          ...values,
+          titleError: '',
+        }));
       }
 
       if (content.length === 0) {
@@ -83,6 +88,11 @@ const DiaryCreatePage = () => {
         }));
 
         return;
+      } else {
+        setInputErrors((values) => ({
+          ...values,
+          contentError: '',
+        }));
       }
     }
 
