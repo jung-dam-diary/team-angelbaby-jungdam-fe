@@ -36,7 +36,7 @@ const DiaryCreatePage = () => {
       date: '',
       title: '',
       content: '',
-      photos: '',
+      photos: [],
     },
   });
   const { date, title, content, photos } = values;
@@ -94,7 +94,7 @@ const DiaryCreatePage = () => {
       console.log(data);
     } catch (e) {
       console.log('fail');
-      console.log(e);
+      console.log(e.message);
     }
     // api 코드 추가 예정
     // navigate('../diary');
