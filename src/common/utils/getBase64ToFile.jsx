@@ -1,4 +1,4 @@
-const getUploadImageUrls = (images, setValues, name) => {
+const getBase64ToFile = (images, setValues) => {
   const imageUrls = [];
 
   for (let i = 0; i < images.length; i++) {
@@ -10,9 +10,9 @@ const getUploadImageUrls = (images, setValues, name) => {
 
     fileReader.onloadend = () => {
       imageUrls.push(fileReader.result);
-      setValues((value) => ({ ...value, [name]: imageUrls }));
+      setValues([...imageUrls]);
     };
   }
 };
 
-export default getUploadImageUrls;
+export default getBase64ToFile;
