@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import getUploadImageUrls from '@utils/getUploadImageUrls';
 
 const useForm = ({ initialValues, onSubmit }) => {
   const [values, setValues] = useState(initialValues);
@@ -9,7 +8,7 @@ const useForm = ({ initialValues, onSubmit }) => {
     const { name, value, files } = e.target;
 
     if (files) {
-      getUploadImageUrls(files, setValues, name);
+      setValues({ ...values, [name]: files });
     } else {
       setValues({ ...values, [name]: value });
     }
