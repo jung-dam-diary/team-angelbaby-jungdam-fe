@@ -13,6 +13,8 @@ import font from '@assets/fonts';
 import color from '@assets/colors';
 import DefaultContainer from '@styles/DefaultContainer';
 import useForm from '@hooks/useForm';
+import { postImageUpload } from '@api/postImageUpload';
+import { postDiaryCreate } from '@api/postDiaryCreate';
 
 const DefaultMarginTop = css`
   margin: 80px 0 80px 0;
@@ -67,9 +69,35 @@ const DiaryCreatePage = () => {
     }
   };
 
-  const handleSubmitButtonClick = () => {
+  const handleSubmitButtonClick = async () => {
+    try {
+      const urls = [];
+
+      for (let i = 0; i < photos.length; i++) {
+        const formData = new FormData();
+        formData.append('image', photos[i]);
+
+        const { data } = await postImageUpload(formData);
+        urls.push(data.uploadImageUrl);
+      }
+
+      const submitData = {
+        diaryTitle: title,
+        diaryContent: content,
+        diaryPhotos: urls,
+        recordedAt: date,
+      };
+
+      // albumId 조회 코드 구현 필요
+      // 반환된 diaryId에 대한 navigate 코드 구현 필요
+      const { data } = await postDiaryCreate(5, submitData);
+      console.log(data);
+    } catch (e) {
+      console.log('fail');
+      console.log(e);
+    }
     // api 코드 추가 예정
-    navigate('../diary');
+    // navigate('../diary');
   };
 
   const leftHeaderContent = () => {
