@@ -65,7 +65,7 @@ const DiaryCreateStepThree = ({ onChange, photos }) => {
       <Title className="subtitle">
         여러장의 사진을 동시에 저장할 수 있어요 !
       </Title>
-      <Upload onChange={onChange}>
+      <Upload onChange={onChange} name={'photos'}>
         <Icon
           name="fluent:camera-add-24-regular"
           height={48}

@@ -13,7 +13,7 @@ const Button = styled.button`
   all: unset;
 `;
 
-const Upload = ({ children, onChange, ...props }) => {
+const Upload = ({ children, onChange, name, ...props }) => {
   const imageUploadInput = useRef(null);
 
   const handleImageUploadClick = () => {
@@ -24,7 +24,7 @@ const Upload = ({ children, onChange, ...props }) => {
     <Container>
       <Input
         type="file"
-        name="photos"
+        name={name}
         accept="image/jpg, image/jpeg, image/png"
         multiple
         ref={imageUploadInput}
