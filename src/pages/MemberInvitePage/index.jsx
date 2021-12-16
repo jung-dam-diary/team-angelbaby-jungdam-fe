@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import DefaultContainer from '@styles/DefaultContainer';
 import color from '@assets/colors';
@@ -6,24 +6,7 @@ import font from '@assets/fonts';
 import { Input, Button, Icon, Spinner, Avatar, Modal } from '@components/base';
 import { DetailPageHeader } from '@components/domain';
 import { useForm } from '@hooks';
-
-const DUMMY_DATA = [
-  {
-    username: '테스트1',
-    email: 'test1@gmail.com',
-    avatar: 'https://picsum.photos/300/600',
-  },
-  {
-    username: '테스트2',
-    email: 'test2@gmail.com',
-    avatar: 'https://picsum.photos/300/600',
-  },
-  {
-    username: '테스트3',
-    email: 'test3@gmail.com',
-    avatar: 'https://picsum.photos/300/600',
-  },
-];
+import { searchUser } from '@api/searchUser';
 
 const MemberInvitePageWrapper = styled(DefaultContainer)`
   width: 100%;
@@ -45,7 +28,6 @@ const UserWrapper = styled.div`
   border-radius: 15px;
   padding: 8px;
   gap: 16px;
-  background-color: ${({ isToggle }) => (isToggle ? color.brown : color.white)};
 `;
 
 const TextWrapper = styled.div`
@@ -53,9 +35,6 @@ const TextWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 8px;
-  > span {
-    color: ${({ isToggle }) => (isToggle ? color.white : color.black)};
-  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -67,38 +46,72 @@ const ButtonWrapper = styled.div`
   box-sizing: border-box;
 `;
 
+const SerchedListWrapper = styled.div`
+  z-index: 999;
+  position: absolute;
+  top: 92px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid ${color.grey_50};
+  width: 100%;
+  padding: 14px;
+  background-color: ${color.white};
+  box-shadow: 0px 12px 40px -12px;
+  cursor: pointer;
+`;
+
+const LoadingtWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const MemberInvitePage = () => {
-  const [searchInfo, setSearchInfo] = useState([]);
+  const inputref = useRef();
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [ModalVisible, setModalVisible] = useState(false);
-  const [isToggle, setIsToggle] = useState(false);
+  const [searchInfo, setSearchInfo] = useState([]);
   const { values, isLoading, handleChange, handleSubmit } = useForm({
     initialValues: {
       email: '',
     },
     onSubmit: async () => {
-      const ans = DUMMY_DATA.filter((data) => {
-        return data.email.includes(values.email);
-      });
-      setSearchInfo(ans);
+      try {
+        const {
+          data: { data },
+        } = await searchUser(values.email);
+        setSearchInfo((values) => values.concat(data));
+      } catch (e) {
+        alert('해당하는 이메일의 사용자를 찾을 수 없습니다.');
+      }
     },
   });
 
-  const searchUserList = (list) =>
-    list.map(({ username, email, avatar }) => (
-      <UserWrapper onClick={onToggle} isToggle={isToggle}>
+  const onSelectUser = () => {
+    const curUser = searchInfo[0];
+    selectedUsers.findIndex((value) => value.email === curUser.email) === -1 &&
+      setSelectedUsers((selectedUsers) => [...selectedUsers, curUser]);
+    inputref.current.value = '';
+    setSearchInfo([]);
+  };
+
+  const searchedUserList = (list) =>
+    list.map(({ nickname, email }, index) => (
+      <SerchedListWrapper onClick={onSelectUser} key={index}>
+        <span>{nickname}</span>
+        <span>{email}</span>
+      </SerchedListWrapper>
+    ));
+
+  const selectedUserList = (list) =>
+    list.map(({ nickname, email, avatar }, index) => (
+      <UserWrapper key={index}>
         <Avatar size="medium" src={avatar} />
-        <TextWrapper isToggle={isToggle}>
-          <span>{username}</span>
+        <TextWrapper>
+          <span>{nickname}</span>
           <span>{email}</span>
         </TextWrapper>
       </UserWrapper>
     ));
-
-  const onToggle = async (e) => {
-    setIsToggle((state) => !state);
-    setSelectedUsers(searchInfo);
-  };
 
   const OpenModal = () => {
     setModalVisible(true);
@@ -114,17 +127,25 @@ const MemberInvitePage = () => {
     <MemberInvitePageWrapper>
       <DetailPageHeader pageTitle="초대하기" />
       <SearchWrapper onSubmit={handleSubmit}>
-        <Input
-          name="email"
-          onChange={handleChange}
-          placeholder="찾을 멤버의 이메일을 입력해주세요."
-        ></Input>
-        <Button onClick={handleSubmit}>
-          <Icon name="carbon:search" color={color.brown} />
-        </Button>
+        <>
+          <Input
+            name="email"
+            onChange={handleChange}
+            placeholder="찾을 멤버의 이메일을 입력해주세요."
+            ref={inputref}
+          ></Input>
+          <Button onClick={handleSubmit}>
+            <Icon name="carbon:search" color={color.brown} />
+          </Button>
+        </>
+        {searchedUserList(searchInfo)}
       </SearchWrapper>
-      {isLoading && <Spinner isLoading={isLoading} />}
-      {searchUserList(searchInfo)}
+      {selectedUserList(selectedUsers)}
+      {isLoading && (
+        <LoadingtWrapper>
+          <Spinner isLoading={isLoading} size={24} />
+        </LoadingtWrapper>
+      )}
       <ButtonWrapper>
         <Button mode="primary" onClick={OpenModal}>
           초대하기
