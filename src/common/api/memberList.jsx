@@ -6,8 +6,8 @@ export const searchUser = async (email) =>
     method: 'GET',
   });
 
-export const inviteUser = async (albumId) =>
-  await api({
-    url: `/api/v1/albums/${albumId}/invitations`,
-    method: 'POST',
-  });
+// export const inviteUser = async (albumId) =>
+//   await api({
+//     url: `/api/v1/albums/${albumId}/invitations`,
+//     method: 'POST',
+//   });
