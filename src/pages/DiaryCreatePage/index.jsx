@@ -67,6 +67,8 @@ const DiaryCreatePage = () => {
           ...values,
           titleError: '제목을 작성해주세요.',
         }));
+
+        return;
       } else if (title.length > 30) {
         setInputErrors((values) => ({
           ...values,
@@ -97,6 +99,12 @@ const DiaryCreatePage = () => {
     }
 
     setStep(() => step + 1);
+
+    setInputErrors((values) => ({
+      ...values,
+      titleError: '',
+      contentError: '',
+    }));
   };
 
   const handlePrevButtonClick = () => {
@@ -172,6 +180,7 @@ const DiaryCreatePage = () => {
           content={content}
           titleError={titleError}
           contentError={contentError}
+          setInputErrors={setInputErrors}
         />
       );
     } else if (step === 3) {
