@@ -169,16 +169,18 @@ const DiaryCreatePage = () => {
         recordedAt: date,
       };
 
-      // albumId 조회 코드 구현 필요
-      // 반환된 diaryId에 대한 navigate 코드 구현 필요
-      const { data } = await postDiaryCreate(5, submitData);
-      console.log(data);
+      const data = {
+        albumId,
+        submitData,
+      };
+
+      const { diaryId } = await postDiaryCreate(data);
+      navigate(`../${diaryId}`);
     } catch (e) {
-      console.log('fail');
       console.log(e.message);
+
+      return;
     }
-    // api 코드 추가 예정
-    // navigate('../diary');
   };
 
   const leftHeaderContent = () => {

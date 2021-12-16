@@ -1,10 +1,12 @@
 import api from './api';
 
-export const postDiaryCreate = async (albumId, body) => {
-  const { data } = await api({
+export const postDiaryCreate = async ({ albumId, submitData }) => {
+  const {
+    data: { data },
+  } = await api({
     url: `/api/v1/albums/${albumId}/diaries`,
     type: 'POST',
-    params: body,
+    params: submitData,
   });
 
   return data;
