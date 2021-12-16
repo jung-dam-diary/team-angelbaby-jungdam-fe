@@ -12,7 +12,13 @@ const Title = styled.span`
   ${font.heading_24};
 `;
 
-const DiaryCreateStepOne = ({ onChange, date }) => {
+const ErrorText = styled.span`
+  margin-top: 5px;
+  font-size: 14px;
+  color: red;
+`;
+
+const DiaryCreateStepOne = ({ onChange, date, dateError }) => {
   const getTodayDate = () => {
     let today = new Date();
     let dd = today.getDate();
@@ -43,6 +49,7 @@ const DiaryCreateStepOne = ({ onChange, date }) => {
         max={getTodayDate()}
         value={date}
       />
+      {dateError && <ErrorText>{dateError}</ErrorText>}
     </Container>
   );
 };

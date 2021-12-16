@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import React, { useState, useRef, useLayoutEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Header,
   DiaryCreateStepOne,
@@ -15,6 +15,7 @@ import DefaultContainer from '@styles/DefaultContainer';
 import useForm from '@hooks/useForm';
 import { postImageUpload } from '@api/postImageUpload';
 import { postDiaryCreate } from '@api/postDiaryCreate';
+import { getExistenceDiaryDate } from '@api/getExistenceDiaryDate';
 
 const DefaultMarginTop = css`
   margin: 80px 0 80px 0;
@@ -28,6 +29,7 @@ const ButtonStyle = {
 };
 
 const DiaryCreatePage = () => {
+  const { albumId } = useParams();
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
   const buttonRef = useRef();
@@ -42,7 +44,7 @@ const DiaryCreatePage = () => {
   const { date, title, content, photos } = values;
 
   const [inputErrors, setInputErrors] = useState({});
-  const { titleError, contentError } = inputErrors;
+  const { dateError, titleError, contentError } = inputErrors;
 
   useLayoutEffect(() => {
     const detectMobileKeyboard = () => {
@@ -60,7 +62,39 @@ const DiaryCreatePage = () => {
     return () => window.removeEventListener('resize', detectMobileKeyboard);
   }, []);
 
-  const handleNextButtonClick = () => {
+  const handleNextButtonClick = async () => {
+    if (step === 1) {
+      if (!date) {
+        setInputErrors((values) => ({
+          ...values,
+          dateError: '날짜를 선택해주세요.',
+        }));
+
+        return;
+      } else if (date) {
+        const data = {
+          albumId,
+          date,
+        };
+
+        try {
+          const { existence } = await getExistenceDiaryDate(data);
+
+          if (existence) {
+            setInputErrors((values) => ({
+              ...values,
+              dateError: '선택하신 날짜는 일기를 이미 작성하셨습니다.',
+            }));
+
+            return;
+          }
+        } catch (e) {
+          console.log(e.message);
+          return;
+        }
+      }
+    }
+
     if (step === 2) {
       if (title.length === 0) {
         setInputErrors((values) => ({
@@ -102,6 +136,7 @@ const DiaryCreatePage = () => {
 
     setInputErrors((values) => ({
       ...values,
+      dateError: '',
       titleError: '',
       contentError: '',
     }));
@@ -171,7 +206,13 @@ const DiaryCreatePage = () => {
 
   const renderDiaryCreateForm = () => {
     if (step === 1) {
-      return <DiaryCreateStepOne onChange={handleChange} date={date} />;
+      return (
+        <DiaryCreateStepOne
+          onChange={handleChange}
+          date={date}
+          dateError={dateError}
+        />
+      );
     } else if (step === 2) {
       return (
         <DiaryCreateStepTwo
