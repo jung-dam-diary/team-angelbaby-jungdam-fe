@@ -62,7 +62,7 @@ const MemberListPage = () => {
       }
     };
     getUserList();
-  }, []);
+  }, [albumId]);
 
   return (
     <MemberListPageContainer>
