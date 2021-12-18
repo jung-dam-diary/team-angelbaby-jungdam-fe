@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styled from '@emotion/styled';
-import { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import color from '@assets/colors';
@@ -39,7 +38,15 @@ const ButtonWrapper = styled.div`
   gap: 32px;
 `;
 
-const Modal = ({ children, width, visible, onClose, selectable, ...props }) => {
+const Modal = ({
+  children,
+  width,
+  visible,
+  onClose,
+  onSubmit,
+  selectable,
+  ...props
+}) => {
   const ref = useClickAway(() => {
     onClose();
   });
@@ -85,7 +92,7 @@ const Modal = ({ children, width, visible, onClose, selectable, ...props }) => {
         <ButtonWrapper>
           {selectable ? (
             <>
-              <Button onClick={onClose}>예</Button>
+              <Button onClick={onSubmit}>예</Button>
               <Button onClick={onClose}>아니오</Button>
             </>
           ) : (
@@ -103,6 +110,7 @@ Modal.propTypes = {
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   visible: PropTypes.bool,
   onClose: PropTypes.func,
+  onSubmit: PropTypes.func,
   selectable: PropTypes.bool,
   style: PropTypes.object,
 };
@@ -111,6 +119,7 @@ Modal.defaultProps = {
   width: '60%',
   visible: false,
   onClose: () => {},
+  onSubmit: () => {},
   selectable: true,
   style: {},
 };
