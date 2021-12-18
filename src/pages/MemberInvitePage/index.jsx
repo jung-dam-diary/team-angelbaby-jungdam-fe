@@ -6,7 +6,8 @@ import font from '@assets/fonts';
 import { Input, Button, Icon, Spinner, Avatar, Modal } from '@components/base';
 import { DetailPageHeader } from '@components/domain';
 import { useForm } from '@hooks';
-import { searchUser } from '@api/searchUser';
+import { searchUser, inviteUser } from '@api/memberList';
+import { useParams } from 'react-router';
 
 const MemberInvitePageWrapper = styled(DefaultContainer)`
   width: 100%;
@@ -28,13 +29,14 @@ const UserWrapper = styled.div`
   border-radius: 15px;
   padding: 8px;
   gap: 16px;
+  margin-bottom: 8px;
 `;
 
 const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 8px;
+  gap: 4px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -67,9 +69,17 @@ const LoadingtWrapper = styled.div`
 
 const MemberInvitePage = () => {
   const inputref = useRef();
+  const initialState = {
+    memberId: 1,
+    avatar: '',
+    email: '',
+    nickname: '',
+  };
   const [selectedUsers, setSelectedUsers] = useState([]);
+  const [searchVisible, setSearchVisible] = useState(false);
   const [ModalVisible, setModalVisible] = useState(false);
-  const [searchInfo, setSearchInfo] = useState([]);
+  const [searchInfo, setSearchInfo] = useState(initialState);
+  const { albumId } = useParams();
   const { values, isLoading, handleChange, handleSubmit } = useForm({
     initialValues: {
       email: '',
@@ -79,28 +89,31 @@ const MemberInvitePage = () => {
         const {
           data: { data },
         } = await searchUser(values.email);
-        setSearchInfo((values) => values.concat(data));
-      } catch (e) {
-        alert('해당하는 이메일의 사용자를 찾을 수 없습니다.');
+        setSearchInfo(data);
+        setSearchVisible(true);
+      } catch ({ response }) {
+        const { data } = response;
+        data.message =
+          'NOT_EXIST_MEMBER' &&
+          alert('해당하는 이메일의 사용자를 찾을 수 없습니다.');
+        setSearchVisible(false);
       }
     },
   });
 
   const onSelectUser = () => {
-    const curUser = searchInfo[0];
-    selectedUsers.findIndex((value) => value.email === curUser.email) === -1 &&
-      setSelectedUsers((selectedUsers) => [...selectedUsers, curUser]);
+    selectedUsers.findIndex((value) => value.email === searchInfo.email) ===
+      -1 && setSelectedUsers((selectedUsers) => [...selectedUsers, searchInfo]);
     inputref.current.value = '';
-    setSearchInfo([]);
+    setSearchInfo(initialState);
   };
 
-  const searchedUserList = (list) =>
-    list.map(({ nickname, email }, index) => (
-      <SerchedListWrapper onClick={onSelectUser} key={index}>
-        <span>{nickname}</span>
-        <span>{email}</span>
-      </SerchedListWrapper>
-    ));
+  const searchedUser = (list) => (
+    <SerchedListWrapper onClick={onSelectUser}>
+      <span>{list.nickname}</span>
+      <span>{list.email}</span>
+    </SerchedListWrapper>
+  );
 
   const selectedUserList = (list) =>
     list.map(({ nickname, email, avatar }, index) => (
@@ -123,6 +136,23 @@ const MemberInvitePage = () => {
     }
   };
 
+  const handleInvite = () => {
+    selectedUsers.map(async ({ memberId }) => {
+      try {
+        await inviteUser(albumId, {
+          targetMemberId: memberId,
+        });
+
+        CloseModal(false);
+      } catch ({ response }) {
+        const { data } = response;
+        data.message =
+          'DUPLICATION_INVITATION_IN_ALBUM' &&
+          alert('이미 초대 요청을 보낸 유저입니다.');
+      }
+    });
+  };
+
   return (
     <MemberInvitePageWrapper>
       <DetailPageHeader pageTitle="초대하기" />
@@ -133,12 +163,12 @@ const MemberInvitePage = () => {
             onChange={handleChange}
             placeholder="찾을 멤버의 이메일을 입력해주세요."
             ref={inputref}
-          ></Input>
+          />
           <Button onClick={handleSubmit}>
             <Icon name="carbon:search" color={color.brown} />
           </Button>
         </>
-        {searchedUserList(searchInfo)}
+        {searchVisible && searchedUser(searchInfo)}
       </SearchWrapper>
       {selectedUserList(selectedUsers)}
       {isLoading && (
@@ -156,8 +186,12 @@ const MemberInvitePage = () => {
           초대할 인원이 없습니다.
         </Modal>
       ) : (
-        <Modal visible={ModalVisible} onClose={CloseModal}>
-          총 {selectedUsers.length}명의 인원을 초대하시겠습니까?
+        <Modal
+          visible={ModalVisible}
+          onClose={CloseModal}
+          onSubmit={() => handleInvite()}
+        >
+          총 {selectedUsers.length}명의 인원을 <br /> 초대하시겠습니까?
         </Modal>
       )}
     </MemberInvitePageWrapper>
