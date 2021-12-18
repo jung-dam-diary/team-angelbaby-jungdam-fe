@@ -4,24 +4,9 @@ import font from '@assets/fonts';
 import { Icon, Divider } from '@components/base';
 import { OnlyInfoHeader, UserCard } from '@components/domain';
 import { useNavigate } from 'react-router-dom';
-
-const DUMMY_DATA = [
-  {
-    nickname: 'test1',
-    avatar: 'https://picsum.photos/300/600',
-    role: 'OWNER',
-  },
-  {
-    nickname: 'test2',
-    avatar: 'https://picsum.photos/300/600',
-    role: 'MEMBER',
-  },
-  {
-    nickname: 'test3',
-    avatar: '',
-    role: 'MEMBER',
-  },
-];
+import { useEffect, useState } from 'react';
+import { getMemberList } from '@api/getMemberList';
+import { useParams } from 'react-router';
 
 const MemberListPageContainer = styled(DefaultContainer)`
   width: 100%;
@@ -53,6 +38,8 @@ const MemberListTitle = styled.div`
 
 const MemberListPage = () => {
   const navigate = useNavigate();
+  const { albumId } = useParams();
+  const [albumMemberList, setAlbumMemberList] = useState([]);
 
   const handleToInvite = (e) => {
     navigate('invite');
@@ -62,6 +49,20 @@ const MemberListPage = () => {
     list.map(({ nickname, avatar, role }, index) => (
       <UserCard nickname={nickname} avatar={avatar} role={role} key={index} />
     ));
+
+  useEffect(() => {
+    const getUserList = async () => {
+      try {
+        const {
+          data: { data },
+        } = await getMemberList(albumId);
+        setAlbumMemberList(data.participants);
+      } catch (e) {
+        console.log(e.response);
+      }
+    };
+    getUserList();
+  }, []);
 
   return (
     <MemberListPageContainer>
@@ -77,7 +78,7 @@ const MemberListPage = () => {
       <MemberListWrapper>
         <MemberListTitle>멤버</MemberListTitle>
         <Divider size={4} />
-        {memberList(DUMMY_DATA)}
+        {memberList(albumMemberList)}
       </MemberListWrapper>
     </MemberListPageContainer>
   );
