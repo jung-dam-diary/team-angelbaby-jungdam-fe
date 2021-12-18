@@ -6,7 +6,8 @@ import font from '@assets/fonts';
 import { Input, Button, Icon, Spinner, Avatar, Modal } from '@components/base';
 import { DetailPageHeader } from '@components/domain';
 import { useForm } from '@hooks';
-import { searchUser, inviteUser } from '@api/memberList';
+import { searchUser } from '@api/searchUser';
+import { inviteUser } from '@api/inviteUser';
 import { useParams } from 'react-router';
 
 const MemberInvitePageWrapper = styled(DefaultContainer)`
