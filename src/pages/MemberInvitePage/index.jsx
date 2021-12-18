@@ -58,7 +58,7 @@ const SerchedListWrapper = styled.div`
   width: 100%;
   padding: 14px;
   background-color: ${color.white};
-  box-shadow: 0px 12px 40px -12px;
+  box-shadow: rgb(0 0 0 / 10%) 0px 12px 40px -12px;
   cursor: pointer;
 `;
 
