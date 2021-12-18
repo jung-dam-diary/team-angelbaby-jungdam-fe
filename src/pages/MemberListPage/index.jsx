@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import DefaultContainer from '@styles/DefaultContainer';
 import font from '@assets/fonts';
-import { Icon, Divider } from '@components/base';
+import { Icon, Divider, Skeleton } from '@components/base';
 import { OnlyInfoHeader, UserCard } from '@components/domain';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -40,6 +40,7 @@ const MemberListPage = () => {
   const navigate = useNavigate();
   const { albumId } = useParams();
   const [albumMemberList, setAlbumMemberList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleToInvite = (e) => {
     navigate('invite');
@@ -52,11 +53,13 @@ const MemberListPage = () => {
 
   useEffect(() => {
     const getUserList = async () => {
+      setIsLoading(true);
       try {
         const {
           data: { data },
         } = await getMemberList(albumId);
         setAlbumMemberList(data.participants);
+        setIsLoading(false);
       } catch (e) {
         console.log(e.response);
       }
@@ -78,7 +81,11 @@ const MemberListPage = () => {
       <MemberListWrapper>
         <MemberListTitle>멤버</MemberListTitle>
         <Divider size={4} />
-        {memberList(albumMemberList)}
+        {isLoading ? (
+          <Skeleton.Box width="100%" height={42} style={{ marginTop: 8 }} />
+        ) : (
+          memberList(albumMemberList)
+        )}
       </MemberListWrapper>
     </MemberListPageContainer>
   );
