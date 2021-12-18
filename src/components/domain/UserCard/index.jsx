@@ -21,7 +21,7 @@ const UserCard = ({ nickname, avatar, role }) => {
     <CardWrapper>
       <Avatar src={avatar} size="base" />
       <TextContent>{nickname}</TextContent>
-      {role === 'OWNER' && (
+      {role === 'ALBUM_OWNER' && (
         <TextContent style={{ fontSize: 12 }}>관리자</TextContent>
       )}
     </CardWrapper>
@@ -31,7 +31,7 @@ const UserCard = ({ nickname, avatar, role }) => {
 UserCard.propTypes = {
   nickname: PropTypes.string.isRequired,
   avatar: PropTypes.string,
-  role: PropTypes.oneOf(['OWNER', 'MEMBER']),
+  role: PropTypes.oneOf(['ALBUM_OWNER', 'ALBUM_MEMBER']),
 };
 
 UserCard.defaultProps = {
