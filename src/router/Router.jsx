@@ -16,6 +16,8 @@ import {
   StoryBookPage,
   StoryBookDetailPage,
   ProfilePage,
+  AlbumSettingsPage,
+  AlbumSettingsEditPage,
   Error404Page,
 } from '@pages';
 import TestPage from '../pages/TestPage';
@@ -51,9 +53,10 @@ const Router = () => {
                   <Route path="" element={<MemberListPage />} />
                   <Route path="invite" element={<MemberInvitePage />} />
                 </Route>
-                {/* <Route path="settings" element={<AlbumSettingsPage />}> */}
-                {/* <Route path="edit" element={<AlbumSettingsEditPage />} /> */}
-                {/* </Route> */}
+                <Route path="settings/*">
+                  <Route path="" element={<AlbumSettingsPage />} />
+                  <Route path="edit" element={<AlbumSettingsEditPage />} />
+                </Route>
                 <Route path="storybook">
                   <Route path="" element={<StoryBookPage />} />
                   <Route
