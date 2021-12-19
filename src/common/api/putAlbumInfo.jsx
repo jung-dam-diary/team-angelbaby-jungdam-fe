@@ -1,7 +1,8 @@
 import api from './api';
 
-export const getAlbumInfo = async (albumId) =>
+export const putAlbumInfo = async (albumId, params) =>
   await api({
     url: `/api/v1/albums/${albumId}`,
-    type: 'GET',
+    type: 'PUT',
+    params,
   });
