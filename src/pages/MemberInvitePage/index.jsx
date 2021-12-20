@@ -107,6 +107,7 @@ const MemberInvitePage = () => {
       -1 && setSelectedUsers((selectedUsers) => [...selectedUsers, searchInfo]);
     inputref.current.value = '';
     setSearchInfo(initialState);
+    setSearchVisible(false);
   };
 
   const searchedUser = (list) => (
@@ -183,13 +184,14 @@ const MemberInvitePage = () => {
         </Button>
       </ButtonWrapper>
       {selectedUsers.length === 0 ? (
-        <Modal visible={ModalVisible} onClose={CloseModal} selectable={false}>
+        <Modal visible={ModalVisible} onClose={CloseModal} selectable="confirm">
           초대할 인원이 없습니다.
         </Modal>
       ) : (
         <Modal
           visible={ModalVisible}
           onClose={CloseModal}
+          selectable="primary"
           onSubmit={() => handleInvite()}
         >
           총 {selectedUsers.length}명의 인원을 <br /> 초대하시겠습니까?
