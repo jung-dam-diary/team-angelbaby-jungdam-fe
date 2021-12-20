@@ -2,6 +2,8 @@ import { Button, Icon } from '@components/base';
 import font from '@assets/fonts';
 import color from '@assets/colors';
 import styled from '@emotion/styled';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -35,9 +37,19 @@ const FamilyMotto = styled.span`
 `;
 
 const AlbumMainHeader = ({ albumName, familyMotto, role }) => {
+  const navigate = useNavigate();
+
+  const handleClickGoBack = useCallback(() => {
+    navigate('/album');
+  }, [navigate]);
+
+  const handleClickGoSetting = useCallback(() => {
+    navigate('../settings');
+  }, [navigate]);
+
   return (
     <Container>
-      <Button>
+      <Button onClick={handleClickGoBack}>
         <Icon name="ep:back" color={color.brown} />
       </Button>
 
@@ -47,7 +59,7 @@ const AlbumMainHeader = ({ albumName, familyMotto, role }) => {
       </ContentWrapper>
 
       {role === 'OWNER' && (
-        <Button>
+        <Button onClick={handleClickGoSetting}>
           <Icon
             name="ant-design:setting-filled"
             height={25}
