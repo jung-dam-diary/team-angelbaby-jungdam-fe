@@ -1,10 +1,10 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { Icon } from '@components/base';
 import color from '@assets/colors';
 import font from '@assets/fonts';
+import { useParams } from 'react-router-dom';
 
 const Container = styled.nav`
   display: flex;
@@ -38,25 +38,27 @@ const NavLinkStyle = css`
 `;
 
 const Navigation = () => {
+  const { albumId } = useParams();
+
   return (
     <Container>
-      <NavLink to="" css={NavLinkStyle}>
+      <NavLink end to={`/album/${albumId}`} css={NavLinkStyle}>
         <Icon name="bx:bx-home-heart" height={24} />
         <Span>홈</Span>
       </NavLink>
-      <NavLink to="" css={NavLinkStyle}>
+      <NavLink to={`/album/${albumId}/storybook`} css={NavLinkStyle}>
         <Icon name="akar-icons:book" height={24} />
         <Span>스토리북</Span>
       </NavLink>
-      <NavLink to="" css={NavLinkStyle}>
+      <NavLink to={`/album/${albumId}/diary/new`} css={NavLinkStyle}>
         <Icon name="bi:pencil" height={24} />
         <Span>일기 쓰기</Span>
       </NavLink>
-      <NavLink to="" css={NavLinkStyle}>
+      <NavLink to={`/album/${albumId}/moment`} css={NavLinkStyle}>
         <Icon name="ic:outline-timeline" height={24} />
         <Span>특별한 순간</Span>
       </NavLink>
-      <NavLink to="" css={NavLinkStyle}>
+      <NavLink to={`/album/${albumId}/members`} css={NavLinkStyle}>
         <Icon name="fluent:people-20-regular" height={24} />
         <Span>멤버 리스트</Span>
       </NavLink>
