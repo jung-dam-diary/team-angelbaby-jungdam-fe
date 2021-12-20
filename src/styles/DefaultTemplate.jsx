@@ -13,17 +13,19 @@ const MainWrapper = styled.div`
 `;
 
 const ResponsiveWrapper = styled(MainWrapper)`
-  width: 414px;
-  height: 736px;
+  width: 100%;
+  height: 100%;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   padding: 0;
 `;
 
 const ResponsiveTemplate = styled.div`
-  width: 414px;
-  height: 736px;
-  border: 1px solid #c4c4c4;
+  width: 436px;
+  height: 100%;
+  /* border: 1px solid #c4c4c4; */
+  overflow: hidden;
   border-radius: 4px;
 `;
 
@@ -46,8 +48,6 @@ const Title = styled.h1`
   ${font.heading_20};
 `;
 
-const Content = styled.p``;
-
 const DefaultTemplate = ({ children }) => {
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -65,12 +65,6 @@ const DefaultTemplate = ({ children }) => {
     <MainWrapper>{children}</MainWrapper>
   ) : (
     <ResponsiveWrapper>
-      <Box>
-        <LogoBox>
-          <Logo />
-          <Title>특별한 순간의 일기로 추억에 빠져보세요.</Title>
-        </LogoBox>
-      </Box>
       <ResponsiveTemplate>{children}</ResponsiveTemplate>
     </ResponsiveWrapper>
   );
