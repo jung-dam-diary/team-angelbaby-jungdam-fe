@@ -144,7 +144,7 @@ const DiaryCreatePage = () => {
 
   const handlePrevButtonClick = () => {
     if (step === 1) {
-      navigate('../diary');
+      navigate(`/album/${albumId}`);
     } else {
       setStep(() => step - 1);
     }
