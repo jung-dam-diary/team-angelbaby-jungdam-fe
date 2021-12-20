@@ -18,7 +18,7 @@ import {
   useEffect,
   useRef,
 } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getDiaryContents } from '@api/getDiaryContents';
 import { getDiaryComments } from '@api/getDiaryComments';
@@ -48,6 +48,7 @@ const Divider = styled.hr`
 
 const DiaryPage = () => {
   const { albumId, diaryId } = useParams();
+  const navigate = useNavigate();
 
   const [scrollType, setScrollType] = useState(null);
 
@@ -190,6 +191,10 @@ const DiaryPage = () => {
     }
   }, [albumId, diaryId]);
 
+  const onClickGoBack = useCallback(() => {
+    navigate(`/album/${albumId}`);
+  }, [navigate, albumId]);
+
   const scrollIntoCommentTop = () => {
     scrollRef.current.scrollIntoView({
       behavior: 'smooth',
@@ -198,7 +203,7 @@ const DiaryPage = () => {
 
   const leftHeaderContent = useCallback(() => {
     return (
-      <Button>
+      <Button onClick={onClickGoBack}>
         <Icon name="ep:back" color={color.brown} />
       </Button>
     );
