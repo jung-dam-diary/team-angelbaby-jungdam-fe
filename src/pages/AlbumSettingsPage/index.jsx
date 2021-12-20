@@ -4,8 +4,10 @@ import DefaultContainer from '@styles/DefaultContainer';
 import color from '@assets/colors';
 import font from '@assets/fonts';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { Modal, Divider } from '@components/base';
 import { DetailPageHeader } from '@components/domain';
+import { deleteAlbum } from '@api/deleteAlbum';
 
 const ALBUM_SETTINGS_LIST = [
   {
@@ -33,6 +35,7 @@ const SettingsList = styled.div`
 
 const AlbumSettingsPage = () => {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
+  const { albumId } = useParams();
   const navigate = useNavigate();
 
   const albumSettings = (list) =>
@@ -63,6 +66,14 @@ const AlbumSettingsPage = () => {
     }
   };
 
+  const handleDeleteAlbum = async () => {
+    try {
+      await deleteAlbum(albumId);
+      navigate('/album');
+    } catch (e) {
+      console.log(e.response);
+    }
+  };
   return (
     <AlbumSettingsPageWrapper>
       <DetailPageHeader pageTitle="앨범 설정" />
@@ -71,7 +82,12 @@ const AlbumSettingsPage = () => {
       {albumSettings(ALBUM_SETTINGS_LIST)}
       <SettingsList onClick={OpenDeleteModal}>앨범 삭제</SettingsList>
       <Divider size={6} />
-      <Modal visible={deleteModalVisible} onClose={CloseDeleteModal}>
+      <Modal
+        selectable="primary"
+        visible={deleteModalVisible}
+        onSubmit={() => handleDeleteAlbum()}
+        onClose={CloseDeleteModal}
+      >
         정말로 앨범을 <br />
         삭제하시겠습니까?
       </Modal>
