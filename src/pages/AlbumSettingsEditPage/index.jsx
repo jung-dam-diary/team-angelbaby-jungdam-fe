@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import DefaultContainer from '@styles/DefaultContainer';
 import font from '@assets/fonts';
 import color from '@assets/colors';
-import { Input, Upload, Icon, Button } from '@components/base';
+import { Input, Upload, Icon, Button, LoadingModal } from '@components/base';
 import { DetailPageHeader } from '@components/domain';
 import { getAlbumInfo } from '@api/getAlbumInfo';
 import { putAlbumInfo } from '@api/putAlbumInfo';
@@ -164,6 +164,7 @@ const AlbumSettingsEditPage = () => {
   return (
     <AlbumSettingsEditPageWrapper>
       <DetailPageHeader pageTitle="앨범 정보 수정" />
+      <LoadingModal isLoading={isLoading} />
       {EditLists(ALBUM_EDIT_LIST)}
       <Button mode="primary" onClick={handleSubmit}>
         확인
