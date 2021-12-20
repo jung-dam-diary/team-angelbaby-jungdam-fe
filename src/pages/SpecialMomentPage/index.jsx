@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DefaultContainer from '@styles/DefaultContainer';
 import font from '@assets/fonts';
 import color from '@assets/colors';
-import { Image } from '@components/base';
+import { Image, Spinner } from '@components/base';
 import { OnlyInfoHeader, Navigation } from '@components/domain';
+import { useParams } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import { getSpecialMoment } from '@api/getSpecialMoment';
+import { getAlbumInfo } from '@api/getAlbumInfo';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/swiper.min.css';
@@ -14,63 +18,6 @@ import 'swiper/components/pagination/pagination.min.css';
 import SwiperCore, { EffectCoverflow, Pagination } from 'swiper';
 
 SwiperCore.use([EffectCoverflow, Pagination]);
-
-const DUMMY_DATA = [
-  {
-    id: 123, // 해당 일자 일기(Diary) id
-    title: '치킨', // 타이틀
-    thumbnail: 'https://swiperjs.com/demos/images/nature-1.jpg', // 해당 일자 일기 맨 처음 id
-    recordedAt: '2021-12-07T00:00:00.000Z', // 일자
-  },
-  {
-    id: 124, // 해당 일자 일기(Diary) id
-    title: '해물파전', // 타이틀
-    thumbnail: 'https://swiperjs.com/demos/images/nature-2.jpg', // 해당 일자 일기 맨 처음 id
-    recordedAt: '2021-12-08T00:00:00.000Z', // 일자
-  },
-  {
-    id: 125, // 해당 일자 일기(Diary) id
-    title: '족발(마늘족발이면좋음)', // 타이틀
-    thumbnail: 'https://swiperjs.com/demos/images/nature-3.jpg', // 해당 일자 일기 맨 처음 id
-    recordedAt: '2021-12-09T00:00:00.000Z', // 일자
-  },
-  {
-    id: 126, // 해당 일자 일기(Diary) id
-    title: '붕어빵2개에1천원', // 타이틀
-    thumbnail: 'https://swiperjs.com/demos/images/nature-4.jpg', // 해당 일자 일기 맨 처음 id
-    recordedAt: '2021-12-10T00:00:00.000Z', // 일자
-  },
-  {
-    id: 127, // 해당 일자 일기(Diary) id
-    title: '아배고파', // 타이틀
-    thumbnail: 'https://swiperjs.com/demos/images/nature-5.jpg', // 해당 일자 일기 맨 처음 id
-    recordedAt: '2021-12-11T00:00:00.000Z', // 일자
-  },
-  {
-    id: 128, // 해당 일자 일기(Diary) id
-    title: '모듬회매운탕추가', // 타이틀
-    thumbnail: 'https://swiperjs.com/demos/images/nature-6.jpg', // 해당 일자 일기 맨 처음 id
-    recordedAt: '2021-12-12T00:00:00.000Z', // 일자
-  },
-  {
-    id: 129, // 해당 일자 일기(Diary) id
-    title: '등갈비', // 타이틀
-    thumbnail: 'https://swiperjs.com/demos/images/nature-7.jpg', // 해당 일자 일기 맨 처음 id
-    recordedAt: '2021-12-13T00:00:00.000Z', // 일자
-  },
-  {
-    id: 130, // 해당 일자 일기(Diary) id
-    title: '곱창', // 타이틀
-    thumbnail: 'https://swiperjs.com/demos/images/nature-8.jpg', // 해당 일자 일기 맨 처음 id
-    recordedAt: '2021-12-14T00:00:00.000Z', // 일자
-  },
-  {
-    id: 131, // 해당 일자 일기(Diary) id
-    title: '보쌈', // 타이틀
-    thumbnail: 'https://swiperjs.com/demos/images/nature-9.jpg', // 해당 일자 일기 맨 처음 id
-    recordedAt: '2021-12-15T00:00:00.000Z', // 일자
-  },
-];
 
 const SpecialMomentPageWrapper = styled(DefaultContainer)`
   width: 100%;
@@ -115,23 +62,68 @@ const ListTitleWrapper = styled.div`
   ${font.content_18}
 `;
 
+const SpinnerWrapper = styled.div`
+  height: 550px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const SpecialMomentPage = () => {
+  const { albumId } = useParams();
+  const navigate = useNavigate();
+  const [momentList, getMomentList] = useState([]);
+  const [albumTitle, setAlbumTitle] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const loadMoment = async () => {
+      try {
+        setIsLoading(true);
+
+        const payload = await getAlbumInfo(albumId);
+        setAlbumTitle(payload.data.data.title);
+
+        const {
+          data: { data },
+        } = await getSpecialMoment(albumId);
+        getMomentList(data.moments);
+
+        setIsLoading(false);
+      } catch (e) {
+        console.log(e.response);
+      }
+    };
+    loadMoment();
+  }, [albumId]);
+
   const slideStyle = {
     backgroundPosition: 'center',
-    backgroundSize: 'cover',
     display: 'flex',
     flexDirection: 'column',
     width: '85%',
   };
 
+  const toDetailPage = (diaryId) => {
+    navigate(`../../album/${albumId}/diary/${diaryId}`);
+  };
+
   const slideList = (list) =>
-    list.map(({ title, thumbnail, recordedAt }, index) => (
-      <SwiperSlide style={slideStyle}>
+    list.map(({ diaryId, title, thumbnail, recordedAt }, index) => (
+      <SwiperSlide
+        style={slideStyle}
+        key={index}
+        onClick={() => toDetailPage(diaryId)}
+      >
         <TooltipWrapper>{recordedAt.substr(0, 10)}</TooltipWrapper>
         <Image
           src={thumbnail}
           alt={index}
-          style={{ borderRadius: 12, width: '100%' }}
+          style={{
+            borderRadius: 12,
+            width: '100%',
+            height: '265px',
+          }}
         />
         <ListTitleWrapper>{title}</ListTitleWrapper>
       </SwiperSlide>
@@ -141,27 +133,30 @@ const SpecialMomentPage = () => {
     <>
       <SpecialMomentPageWrapper>
         <OnlyInfoHeader pageTitle="특별한 순간" />
-        <PageTitle>'앨범 명'의 기억들</PageTitle>
-        <ContentWrapper>
-          <StyledSwiper
-            effect={'coverflow'}
-            grabCursor={true}
-            centeredSlides={true}
-            slidesPerView={'auto'}
-            spaceBetween={1}
-            height={550}
-            coverflowEffect={{
-              // rotate: 50,
-              // stretch: 0,
-              // depth: 100,
-              // modifier: 1,
-              slideShadows: false,
-            }}
-            // pagination={true}
-          >
-            {slideList(DUMMY_DATA)}
-          </StyledSwiper>
-        </ContentWrapper>
+        {isLoading ? (
+          <SpinnerWrapper>
+            <Spinner size={24} />
+          </SpinnerWrapper>
+        ) : (
+          <>
+            <PageTitle>'{albumTitle}'의 기억들</PageTitle>
+            <ContentWrapper>
+              <StyledSwiper
+                effect={'coverflow'}
+                grabCursor={true}
+                centeredSlides={true}
+                slidesPerView={'auto'}
+                spaceBetween={1}
+                height={550}
+                coverflowEffect={{
+                  slideShadows: false,
+                }}
+              >
+                {slideList(momentList)}
+              </StyledSwiper>
+            </ContentWrapper>
+          </>
+        )}
       </SpecialMomentPageWrapper>
       <Navigation />
     </>
