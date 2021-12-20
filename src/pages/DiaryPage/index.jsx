@@ -207,7 +207,7 @@ const DiaryPage = () => {
         <Icon name="ep:back" color={color.brown} />
       </Button>
     );
-  }, []);
+  }, [onClickGoBack]);
 
   return (
     <DefaultContainer css={ContainerStyle}>
