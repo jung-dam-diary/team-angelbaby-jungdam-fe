@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import DefaultContainer from '@styles/DefaultContainer';
 import font from '@assets/fonts';
-import { Icon, Divider, Skeleton } from '@components/base';
+import { Icon, Divider, Spinner } from '@components/base';
 import { OnlyInfoHeader, UserCard } from '@components/domain';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -34,6 +34,12 @@ const MemberListWrapper = styled.div`
 const MemberListTitle = styled.div`
   height: 32px;
   ${font.heading_20}
+`;
+
+const SpinnerWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
 `;
 
 const MemberListPage = () => {
@@ -82,7 +88,9 @@ const MemberListPage = () => {
         <MemberListTitle>멤버</MemberListTitle>
         <Divider size={4} />
         {isLoading ? (
-          <Skeleton.Box width="100%" height={42} style={{ marginTop: 8 }} />
+          <SpinnerWrapper>
+            <Spinner size={24} />
+          </SpinnerWrapper>
         ) : (
           memberList(albumMemberList)
         )}
