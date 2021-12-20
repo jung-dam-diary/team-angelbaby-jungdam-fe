@@ -146,7 +146,9 @@ const AlbumSettingsEditPage = () => {
         {type === 'upload' ? (
           <Upload onChange={handleUpload} name="thumbnail" css={UploadStyle}>
             <ThumbnailWrapper src={albumInfo.thumbnail}>
-              <Icon name="fluent:camera-add-24-regular" height={32} />
+              {!image && (
+                <Icon name="fluent:camera-add-24-regular" height={32} />
+              )}
             </ThumbnailWrapper>
           </Upload>
         ) : (
