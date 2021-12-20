@@ -48,7 +48,7 @@ const MemberListPage = () => {
   const [albumMemberList, setAlbumMemberList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleToInvite = (e) => {
+  const handleToInvite = () => {
     navigate('invite');
   };
 
@@ -76,7 +76,7 @@ const MemberListPage = () => {
   return (
     <MemberListPageContainer>
       <OnlyInfoHeader pageTitle="멤버 리스트" />
-      <ToInvitePage onClick={handleToInvite}>
+      <ToInvitePage onClick={() => handleToInvite()}>
         <InviteWrapper>
           <Icon name="octicon:person-add-24" />
           멤버 초대하기
