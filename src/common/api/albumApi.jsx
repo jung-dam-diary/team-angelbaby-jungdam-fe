@@ -17,3 +17,14 @@ export const putInvitations = async ({ invitationId, status }) =>
     type: 'put',
     params: { status },
   });
+
+export const getAlbumTitleInfo = async ({ albumId }) => {
+  const {
+    data: { data },
+  } = await api({
+    url: `/api/v1/albums/${albumId}`,
+  });
+
+  console.log(data);
+  return data;
+};
