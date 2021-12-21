@@ -58,7 +58,7 @@ const AlbumMainHeader = ({ albumName, familyMotto, role }) => {
         <FamilyMotto>{familyMotto}</FamilyMotto>
       </ContentWrapper>
 
-      {role === 'OWNER' && (
+      {role === 'ROLE_ADMIN' && (
         <Button onClick={handleClickGoSetting}>
           <Icon
             name="ant-design:setting-filled"
