@@ -41,7 +41,7 @@ const DiaryHeaderInfo = ({
   bookmark,
   auth,
   onBookmarkClick,
-  onClickDiaryDelete,
+  onModal,
 }) => {
   return (
     <>
@@ -70,7 +70,7 @@ const DiaryHeaderInfo = ({
         <CreatedAt>{createdAt}</CreatedAt>
         <div>
           {/* {auth && <Edit>수정</Edit>} */}
-          {auth && <DiaryDelete onClick={onClickDiaryDelete}>삭제</DiaryDelete>}
+          {auth && <DiaryDelete onClick={onModal}>삭제</DiaryDelete>}
         </div>
       </SubtitleContainer>
     </>

@@ -8,7 +8,7 @@ import {
   DiaryComment,
   DiaryCommentInputForm,
 } from '@components/domain';
-import { Button, Icon } from '@components/base';
+import { Button, Icon, Modal } from '@components/base';
 import DefaultContainer from '@styles/DefaultContainer';
 import color from '@assets/colors';
 import {
@@ -50,6 +50,7 @@ const Divider = styled.hr`
 const DiaryPage = () => {
   const { albumId, diaryId } = useParams();
   const navigate = useNavigate();
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false);
 
   const [scrollType, setScrollType] = useState(null);
 
@@ -211,6 +212,16 @@ const DiaryPage = () => {
     }
   }, [albumId, diaryId, navigate]);
 
+  const OpenDeleteModal = () => {
+    setDeleteModalVisible(true);
+  };
+
+  const CloseDeleteModal = () => {
+    if (deleteModalVisible) {
+      setDeleteModalVisible(false);
+    }
+  };
+
   const scrollIntoCommentTop = () => {
     scrollRef.current.scrollIntoView({
       behavior: 'smooth',
@@ -236,7 +247,7 @@ const DiaryPage = () => {
         bookmark={bookmark}
         auth={participant.email === email}
         onBookmarkClick={handleBookmarkClick}
-        onClickDiaryDelete={onClickDiaryDelete}
+        onModal={OpenDeleteModal}
       />
       <DiaryImages images={diaryPhotos} />
       <DiaryContent content={content} />
@@ -254,6 +265,15 @@ const DiaryPage = () => {
         onChange={handleChange}
         onClick={handleCommentCreateClick}
       />
+      <Modal
+        selectable="primary"
+        visible={deleteModalVisible}
+        onSubmit={() => onClickDiaryDelete()}
+        onClose={CloseDeleteModal}
+      >
+        정말로 일기를 <br />
+        삭제하시겠습니까?
+      </Modal>
     </DefaultContainer>
   );
 };
