@@ -143,7 +143,7 @@ const AlbumMainTimeline = ({ diaries, children }) => {
                         <DimImage
                           src={image}
                           mode="cover"
-                          style={{ borderRadius: '0px' }}
+                          style={{ borderRadius: '6px' }}
                         >
                           <DiaryTitle>{diary.title}</DiaryTitle>
                           <DiaryDate>{diary.recordedAt}</DiaryDate>
