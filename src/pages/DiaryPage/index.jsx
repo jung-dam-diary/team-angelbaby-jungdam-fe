@@ -106,7 +106,7 @@ const DiaryPage = () => {
         albumId,
         diaryId,
         cursorId: cursorId.current,
-        size: 10,
+        size: 15,
       };
 
       const data = await getDiaryComments(body);
@@ -153,7 +153,7 @@ const DiaryPage = () => {
 
       setState((state) => ({
         ...state,
-        comments: [newComment].concat(state.comments),
+        comments: [newComment].concat(...state.comments),
       }));
 
       setScrollType(() => 'Create');
@@ -178,6 +178,8 @@ const DiaryPage = () => {
             (comment) => comment.commentId !== Number(commentId),
           ),
         }));
+
+        createCommentInput.current.value = '';
       } catch (e) {
         console.log(e.response.data.message);
       }
@@ -256,6 +258,7 @@ const DiaryPage = () => {
         comments={comments}
         ref={scrollRef}
         hasNext={hasNext}
+        userInfo={email}
         onDelete={handleCommentDeleteClick}
       />
       <DiaryCommentInputForm

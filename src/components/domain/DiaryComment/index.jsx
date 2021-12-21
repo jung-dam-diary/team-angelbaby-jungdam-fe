@@ -3,7 +3,6 @@ import font from '@assets/fonts';
 import color from '@assets/colors';
 import { forwardRef } from 'react';
 import { Icon } from '@components/base';
-import { useSelector } from 'react-redux';
 
 const Conatainer = styled.div`
   padding-top: 20px;
@@ -56,9 +55,7 @@ const Delete = styled.button`
   background: none;
 `;
 
-const DiaryComment = forwardRef(({ comments, onDelete }, ref) => {
-  const userInfo = useSelector((state) => state.member.data.memberEmail);
-
+const DiaryComment = forwardRef(({ comments, onDelete, userInfo }, ref) => {
   return (
     <Conatainer ref={ref}>
       {comments.map(
