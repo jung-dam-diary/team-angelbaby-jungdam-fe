@@ -1,8 +1,9 @@
+import React from 'react';
 import styled from 'styled-components';
 import DefaultContainer from '@styles/DefaultContainer';
 import font from '@assets/fonts';
 import { Icon, Divider, Spinner } from '@components/base';
-import { OnlyInfoHeader, UserCard } from '@components/domain';
+import { OnlyInfoHeader, UserCard, Navigation } from '@components/domain';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getMemberList } from '@api/getMemberList';
@@ -74,28 +75,31 @@ const MemberListPage = () => {
   }, [albumId]);
 
   return (
-    <MemberListPageContainer>
-      <OnlyInfoHeader pageTitle="멤버 리스트" />
-      <ToInvitePage onClick={() => handleToInvite()}>
-        <InviteWrapper>
-          <Icon name="octicon:person-add-24" />
-          멤버 초대하기
-        </InviteWrapper>
-        <Icon name="octicon:chevron-right-24" />
-      </ToInvitePage>
-      <Divider size={4} />
-      <MemberListWrapper>
-        <MemberListTitle>멤버</MemberListTitle>
+    <>
+      <MemberListPageContainer>
+        <OnlyInfoHeader pageTitle="멤버 리스트" />
+        <ToInvitePage onClick={() => handleToInvite()}>
+          <InviteWrapper>
+            <Icon name="octicon:person-add-24" />
+            멤버 초대하기
+          </InviteWrapper>
+          <Icon name="octicon:chevron-right-24" />
+        </ToInvitePage>
         <Divider size={4} />
-        {isLoading ? (
-          <SpinnerWrapper>
-            <Spinner size={24} />
-          </SpinnerWrapper>
-        ) : (
-          memberList(albumMemberList)
-        )}
-      </MemberListWrapper>
-    </MemberListPageContainer>
+        <MemberListWrapper>
+          <MemberListTitle>멤버</MemberListTitle>
+          <Divider size={4} />
+          {isLoading ? (
+            <SpinnerWrapper>
+              <Spinner size={24} />
+            </SpinnerWrapper>
+          ) : (
+            memberList(albumMemberList)
+          )}
+        </MemberListWrapper>
+      </MemberListPageContainer>
+      <Navigation />
+    </>
   );
 };
 
