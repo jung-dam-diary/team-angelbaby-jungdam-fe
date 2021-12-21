@@ -25,6 +25,5 @@ export const getAlbumTitleInfo = async ({ albumId }) => {
     url: `/api/v1/albums/${albumId}`,
   });
 
-  console.log(data);
   return data;
 };
