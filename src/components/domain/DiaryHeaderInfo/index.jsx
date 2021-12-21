@@ -24,10 +24,10 @@ const CreatedAt = styled.span`
   ${() => font.content_16}
 `;
 
-const Edit = styled.span`
-  color: ${color.grey};
-  ${() => font.content_16}
-`;
+// const Edit = styled.span`
+//   color: ${color.grey};
+//   ${() => font.content_16}
+// `;
 
 const DiaryDelete = styled.span`
   margin-left: 10px;
@@ -35,7 +35,14 @@ const DiaryDelete = styled.span`
   ${() => font.content_16}
 `;
 
-const DiaryHeaderInfo = ({ title, createdAt, bookmark, onBookmarkClick }) => {
+const DiaryHeaderInfo = ({
+  title,
+  createdAt,
+  bookmark,
+  auth,
+  onBookmarkClick,
+  onClickDiaryDelete,
+}) => {
   return (
     <>
       <TitleContainer>
@@ -62,8 +69,8 @@ const DiaryHeaderInfo = ({ title, createdAt, bookmark, onBookmarkClick }) => {
       <SubtitleContainer>
         <CreatedAt>{createdAt}</CreatedAt>
         <div>
-          <Edit>수정</Edit>
-          <DiaryDelete>삭제</DiaryDelete>
+          {/* {auth && <Edit>수정</Edit>} */}
+          {auth && <DiaryDelete onClick={onClickDiaryDelete}>삭제</DiaryDelete>}
         </div>
       </SubtitleContainer>
     </>

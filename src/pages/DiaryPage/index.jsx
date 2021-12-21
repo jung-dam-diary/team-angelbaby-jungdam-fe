@@ -28,6 +28,7 @@ import { postDiaryComment } from '@api/postDiaryComment';
 import { deleteDiaryComment } from '@api/deleteDiaryComment';
 import { putBookmark } from '@api/putBookmark';
 import replaceTildeWithDate from '@utils/replaceTildeWithDate';
+import { deleteDiary } from '@api/deleteDiary';
 
 const ContainerStyle = css`
   margin-top: 38px;
@@ -95,6 +96,7 @@ const DiaryPage = () => {
         recordedAt: replaceTildeWithDate(data.recordedAt),
         diaryPhotos: [...data.diaryPhotos],
         content: data.content,
+        participant: { ...data.participant },
       }));
     };
 
@@ -129,8 +131,11 @@ const DiaryPage = () => {
     content,
     comments,
     hasNext,
+    participant,
   } = state;
   const profile = useSelector((state) => state.member.data.memberAvatar);
+  const email = useSelector((state) => state.member.data.memberEmail);
+
   const scrollRef = useRef(null);
 
   const handleCommentCreateClick = useCallback(async () => {
@@ -195,6 +200,17 @@ const DiaryPage = () => {
     navigate(`/album/${albumId}`);
   }, [navigate, albumId]);
 
+  const onClickDiaryDelete = useCallback(async () => {
+    try {
+      const data = await deleteDiary({ albumId, diaryId });
+
+      console.log(data);
+      navigate(`/album/${albumId}`);
+    } catch (e) {
+      console.log(e.response.data.message);
+    }
+  }, [albumId, diaryId, navigate]);
+
   const scrollIntoCommentTop = () => {
     scrollRef.current.scrollIntoView({
       behavior: 'smooth',
@@ -209,6 +225,8 @@ const DiaryPage = () => {
     );
   }, [onClickGoBack]);
 
+  if (!participant) return null;
+
   return (
     <DefaultContainer css={ContainerStyle}>
       <Header leftComponent={leftHeaderContent()} />
@@ -216,7 +234,9 @@ const DiaryPage = () => {
         title={title}
         createdAt={recordedAt}
         bookmark={bookmark}
+        auth={participant.email === email}
         onBookmarkClick={handleBookmarkClick}
+        onClickDiaryDelete={onClickDiaryDelete}
       />
       <DiaryImages images={diaryPhotos} />
       <DiaryContent content={content} />
