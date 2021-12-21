@@ -26,6 +26,7 @@ const DiaryUserInfo = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  border-bottom: solid 1px ${color.grey};
 `;
 
 const Avatar = styled.img`
@@ -92,10 +93,18 @@ const StyledSwiper = styled(Swiper)`
   position: relative;
 `;
 
+const DefaultDimImageContainer = styled.div`
+  width: 100%;
+  height: 40vh;
+  min-height: 40vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
+`;
+
 const StyledSwiperSlider = {
   width: '100%',
   height: '100%',
-  borderRadius: '6px',
 };
 
 const AlbumMainTimeline = ({ diaries, children }) => {
@@ -134,7 +143,7 @@ const AlbumMainTimeline = ({ diaries, children }) => {
                         <DimImage
                           src={image}
                           mode="cover"
-                          style={{ borderRadius: '6px' }}
+                          style={{ borderRadius: '0px' }}
                         >
                           <DiaryTitle>{diary.title}</DiaryTitle>
                           <DiaryDate>{diary.recordedAt}</DiaryDate>
@@ -144,10 +153,12 @@ const AlbumMainTimeline = ({ diaries, children }) => {
                   ))}
                 </StyledSwiper>
               ) : (
-                <DimImage mode="cover" style={{ borderRadius: '6px' }}>
-                  <DiaryTitle>{diary.title}</DiaryTitle>
-                  <DiaryDate>{diary.recordedAt}</DiaryDate>
-                </DimImage>
+                <DefaultDimImageContainer>
+                  <DimImage mode="cover">
+                    <DiaryTitle>{diary.title}</DiaryTitle>
+                    <DiaryDate>{diary.recordedAt}</DiaryDate>
+                  </DimImage>
+                </DefaultDimImageContainer>
               )}
             </DiaryInfo>
           </Diary>
