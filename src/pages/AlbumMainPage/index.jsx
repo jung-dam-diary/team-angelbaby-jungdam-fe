@@ -39,6 +39,7 @@ const AlbumMainPage = () => {
     fetchAlbumTitleInfo();
   }, [albumId]);
 
+  if (!headerInfo) return null;
   if (state.length === 0) return null;
 
   return (
