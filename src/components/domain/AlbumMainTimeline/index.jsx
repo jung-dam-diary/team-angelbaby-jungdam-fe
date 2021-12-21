@@ -5,7 +5,7 @@ import 'swiper/components/pagination/pagination.min.css';
 import color from '@assets/colors';
 import font from '@assets/fonts';
 import { DimImage, Icon } from '@components/base';
-import { useCallback } from 'react';
+import { useCallback, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Container = styled.main`
@@ -98,7 +98,7 @@ const StyledSwiperSlider = {
   borderRadius: '6px',
 };
 
-const AlbumMainTimeline = ({ diaries }) => {
+const AlbumMainTimeline = ({ diaries, children }) => {
   const navigate = useNavigate();
 
   const onClick = useCallback(
@@ -128,11 +128,11 @@ const AlbumMainTimeline = ({ diaries }) => {
             <DiaryInfo>
               {diary.diaryPhotos.length > 0 ? (
                 <StyledSwiper {...swiperParams}>
-                  {diary.diaryPhotos.map((photo, index) => (
-                    <SwiperSlide key={index} style={StyledSwiperSlider}>
+                  {diary.diaryPhotos.map(({ id, image }) => (
+                    <SwiperSlide key={id} style={StyledSwiperSlider}>
                       <DiaryImageSlider>
                         <DimImage
-                          src={photo}
+                          src={image}
                           mode="cover"
                           style={{ borderRadius: '6px' }}
                         >
@@ -159,8 +159,9 @@ const AlbumMainTimeline = ({ diaries }) => {
           <DefaultSpan>먼저 일기를 작성해볼까요 ?</DefaultSpan>
         </DefaultAlbum>
       )}
+      {children}
     </Container>
   );
 };
 
-export default AlbumMainTimeline;
+export default memo(AlbumMainTimeline);
