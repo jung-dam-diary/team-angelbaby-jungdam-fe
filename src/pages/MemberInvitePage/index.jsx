@@ -9,6 +9,7 @@ import { useForm } from '@hooks';
 import { searchUser } from '@api/searchUser';
 import { inviteUser } from '@api/inviteUser';
 import { useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 
 const MemberInvitePageWrapper = styled(DefaultContainer)`
   width: 100%;
@@ -81,6 +82,7 @@ const MemberInvitePage = () => {
   const [ModalVisible, setModalVisible] = useState(false);
   const [searchInfo, setSearchInfo] = useState(initialState);
   const { albumId } = useParams();
+  const navigate = useNavigate();
   const { values, isLoading, handleChange, handleSubmit } = useForm({
     initialValues: {
       email: '',
@@ -128,6 +130,10 @@ const MemberInvitePage = () => {
       </UserWrapper>
     ));
 
+  const goBack = () => {
+    navigate('../');
+  };
+
   const OpenModal = () => {
     setModalVisible(true);
   };
@@ -144,20 +150,21 @@ const MemberInvitePage = () => {
         await inviteUser(albumId, {
           targetMemberId: memberId,
         });
-
         CloseModal(false);
+        goBack();
       } catch ({ response }) {
         const { data } = response;
         data.message =
           'DUPLICATION_INVITATION_IN_ALBUM' &&
-          alert('이미 초대 요청을 보낸 유저입니다.');
+          alert('이미 초대 요청을 보낸 유저가 포함되어 있습니다.');
+        CloseModal(false);
       }
     });
   };
 
   return (
     <MemberInvitePageWrapper>
-      <DetailPageHeader pageTitle="초대하기" />
+      <DetailPageHeader pageTitle="초대하기" handleGoBack={goBack} />
       <SearchWrapper onSubmit={handleSubmit}>
         <>
           <Input
