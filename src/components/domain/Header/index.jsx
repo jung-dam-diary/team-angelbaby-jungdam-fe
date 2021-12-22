@@ -24,7 +24,10 @@ const HeaderContainer = styled.header`
 `;
 
 const HeaderContent = styled.div`
+  display: -webkit-flex;
   display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
   flex: 1;
   justify-content: ${({ align }) => align};
 `;
@@ -87,6 +90,7 @@ export const MainHeader = ({ groupTitle, familyMotto, role }) => {
           </TextWrapper>
         </>
       }
+      centerComponent={''}
       rightComponent={
         <GroupWrapper>
           <Button>
@@ -118,6 +122,7 @@ export const ServiceInfoHeader = ({ src }) => {
     <Header
       style={{ boxShadow: `0px 1px 4px rgba(100, 88, 71, 0.25)` }}
       leftComponent={<Image src={Logo} alt="logo" block width="38px" />}
+      centerComponent={''}
       rightComponent={
         <Link to="/album/profile">
           <Avatar src={src} />
@@ -166,6 +171,8 @@ export const OnlyInfoHeader = ({ pageTitle }) => {
     <Header
       style={{ boxShadow: `0px 1px 4px rgba(100, 88, 71, 0.25)` }}
       leftComponent={<HeadingContent>{pageTitle}</HeadingContent>}
+      centerComponent={''}
+      rightComponent={''}
     />
   );
 };
