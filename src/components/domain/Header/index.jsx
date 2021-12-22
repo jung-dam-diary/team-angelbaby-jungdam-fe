@@ -14,7 +14,6 @@ const HeaderContainer = styled.header`
   z-index: 5;
   top: 0;
   left: 0;
-  right: 0;
   width: 100%;
   height: 70px;
   justify-content: center;
@@ -25,11 +24,10 @@ const HeaderContainer = styled.header`
 `;
 
 const HeaderContent = styled.div`
-  display: -webkit-flex;
   display: flex;
-  justify-content: space-between;
-  -webkit-flex: 1;
   flex: 1;
+  width: 100%;
+  margin: 0;
   justify-content: ${({ align }) => align};
 `;
 
@@ -65,7 +63,7 @@ const Header = ({
     <HeaderContainer {...props}>
       <HeaderContent align="left">{leftComponent}</HeaderContent>
       <HeaderContent align="center">{centerComponent}</HeaderContent>
-      <HeaderContent align="right">{rightComponent}</HeaderContent>
+      <HeaderContent align="flex-end">{rightComponent}</HeaderContent>
     </HeaderContainer>
   );
 };
@@ -91,7 +89,6 @@ export const MainHeader = ({ groupTitle, familyMotto, role }) => {
           </TextWrapper>
         </>
       }
-      centerComponent={''}
       rightComponent={
         <GroupWrapper>
           <Button>
@@ -125,9 +122,11 @@ export const ServiceInfoHeader = ({ src }) => {
       leftComponent={<Image src={Logo} alt="logo" block width="38px" />}
       centerComponent={''}
       rightComponent={
-        <Link to="/album/profile">
-          <Avatar src={src} />
-        </Link>
+        <div style={{ textAlign: 'right' }}>
+          <Link to="/album/profile">
+            <Avatar src={src} />
+          </Link>
+        </div>
       }
     />
   );
