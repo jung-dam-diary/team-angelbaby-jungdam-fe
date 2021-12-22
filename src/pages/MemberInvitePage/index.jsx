@@ -150,6 +150,7 @@ const MemberInvitePage = () => {
         await inviteUser(albumId, {
           targetMemberId: memberId,
         });
+        alert('초대가 발송되었습니다.');
         CloseModal(false);
         goBack();
       } catch ({ response }) {
