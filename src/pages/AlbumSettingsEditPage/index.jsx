@@ -37,15 +37,15 @@ const AlbumSettingsEditPageWrapper = styled(DefaultContainer)`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-top: 60px;
+  padding-top: 50px;
 `;
 
 const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 42px;
+  margin-bottom: 38px;
 `;
+
 const ContentTitle = styled.span`
   padding: 0;
   ${font.content_16}
@@ -149,7 +149,6 @@ const AlbumSettingsEditPage = () => {
     navigate('../');
   };
 
-  console.log(albumInfo);
   const EditLists = (list) =>
     list.map(({ name, text, placeholder, type }, index) => (
       <ContentWrapper key={index}>
@@ -177,7 +176,11 @@ const AlbumSettingsEditPage = () => {
       <DetailPageHeader pageTitle="앨범 정보 수정" handleGoBack={goBack} />
       <LoadingModal isLoading={isLoading} />
       {EditLists(ALBUM_EDIT_LIST)}
-      <Button mode="primary" onClick={handleSubmit}>
+      <Button
+        mode="primary"
+        onClick={handleSubmit}
+        style={{ padding: '18px 0 18px 0', boxSizing: 'border-box' }}
+      >
         확인
       </Button>
     </AlbumSettingsEditPageWrapper>
