@@ -90,29 +90,33 @@ const AlbumSettingsEditPage = () => {
   const { values, isLoading, handleChange, handleSubmit } = useForm({
     initialValues: intialState,
     onSubmit: async () => {
-      for (let value in albumInfo) {
-        if (value === 'id') continue;
-        if (
-          values[value] === '' ||
-          values[value] === 0 ||
-          value === 'thumbnail'
-        ) {
-          values[value] = albumInfo[value];
+      if (image === '' && values.title === '' && values.familyMotto === '') {
+        alert('변경할 앨범 정보가 없습니다.');
+      } else {
+        for (let value in albumInfo) {
+          if (value === 'id') continue;
+          if (
+            values[value] === '' ||
+            values[value] === 0 ||
+            value === 'thumbnail'
+          ) {
+            values[value] = albumInfo[value];
+          }
         }
-      }
 
-      if (image !== '') {
-        const imageUrl = await postImageUploads(image);
-        values.thumbnail = imageUrl;
-      }
+        if (image !== '') {
+          const imageUrl = await postImageUploads(image);
+          values.thumbnail = imageUrl;
+        }
 
-      try {
-        const res = await putAlbumInfo(albumId, values);
-        res && alert('성공적으로 변경되었습니다.');
-        goBack();
-      } catch ({ response }) {
-        const { data } = response;
-        console.log(data);
+        try {
+          const res = await putAlbumInfo(albumId, values);
+          res && alert('성공적으로 변경되었습니다.');
+          goBack();
+        } catch ({ response }) {
+          const { data } = response;
+          console.log(data);
+        }
       }
     },
   });
