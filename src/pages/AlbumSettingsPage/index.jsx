@@ -39,8 +39,8 @@ const AlbumSettingsPage = () => {
   const navigate = useNavigate();
 
   const albumSettings = (list) =>
-    list.map(({ name, to }) => (
-      <>
+    list.map(({ name, to }, index) => (
+      <div key={index}>
         <SettingsList
           onClick={() => {
             handleToPage(to);
@@ -49,7 +49,7 @@ const AlbumSettingsPage = () => {
           {name}
         </SettingsList>
         <Divider size={6} />
-      </>
+      </div>
     ));
 
   const goBack = () => {
