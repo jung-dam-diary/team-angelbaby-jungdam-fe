@@ -10,6 +10,7 @@ import { putAlbumInfo } from '@api/putAlbumInfo';
 import { postImageUploads } from '@api/commonApi';
 import { useParams } from 'react-router';
 import { useForm } from '@hooks';
+import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
 
 const ALBUM_EDIT_LIST = [
@@ -75,6 +76,7 @@ const ThumbnailWrapper = styled.div`
 
 const AlbumSettingsEditPage = () => {
   const { albumId } = useParams();
+  const navigate = useNavigate();
 
   const intialState = {
     title: '',
@@ -107,6 +109,7 @@ const AlbumSettingsEditPage = () => {
       try {
         const res = await putAlbumInfo(albumId, values);
         res && alert('성공적으로 변경되었습니다.');
+        goBack();
       } catch ({ response }) {
         const { data } = response;
         console.log(data);
@@ -138,6 +141,10 @@ const AlbumSettingsEditPage = () => {
     };
   };
 
+  const goBack = () => {
+    navigate('../');
+  };
+
   console.log(albumInfo);
   const EditLists = (list) =>
     list.map(({ name, text, placeholder, type }, index) => (
@@ -163,7 +170,7 @@ const AlbumSettingsEditPage = () => {
 
   return (
     <AlbumSettingsEditPageWrapper>
-      <DetailPageHeader pageTitle="앨범 정보 수정" />
+      <DetailPageHeader pageTitle="앨범 정보 수정" handleGoBack={goBack} />
       <LoadingModal isLoading={isLoading} />
       {EditLists(ALBUM_EDIT_LIST)}
       <Button mode="primary" onClick={handleSubmit}>

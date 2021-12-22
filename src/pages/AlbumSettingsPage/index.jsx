@@ -52,6 +52,10 @@ const AlbumSettingsPage = () => {
       </>
     ));
 
+  const goBack = () => {
+    navigate(`/album/${albumId}`);
+  };
+
   const handleToPage = (url) => {
     navigate(url);
   };
@@ -76,7 +80,7 @@ const AlbumSettingsPage = () => {
   };
   return (
     <AlbumSettingsPageWrapper>
-      <DetailPageHeader pageTitle="앨범 설정" />
+      <DetailPageHeader pageTitle="앨범 설정" handleGoBack={goBack} />
       <AlbumSettingsTitle>앨범 설정</AlbumSettingsTitle>
       <Divider style={{ backgroundColor: color.grey }} />
       {albumSettings(ALBUM_SETTINGS_LIST)}
