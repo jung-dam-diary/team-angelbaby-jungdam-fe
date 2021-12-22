@@ -72,7 +72,7 @@ const SpinnerWrapper = styled.div`
 const MomentDefault = styled.div`
   display: flex;
   flex-direction: column;
-  height: 500px;
+  height: 380px;
   justify-content: center;
   align-items: center;
   ${font.content_18};
@@ -158,7 +158,9 @@ const SpecialMomentPage = () => {
               {momentList.length === 0 && (
                 <MomentDefault>
                   앨범의 특별한 순간이 없습니다!
-                  <span>일기를 북마크해서 특별한 순간을 만들어보세요.</span>
+                  <span style={{ whiteSpace: 'nowrap' }}>
+                    일기를 북마크해서 특별한 순간을 만들어보세요.
+                  </span>
                 </MomentDefault>
               )}
               <StyledSwiper
