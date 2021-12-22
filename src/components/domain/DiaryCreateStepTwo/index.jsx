@@ -4,6 +4,8 @@ import font from '@assets/fonts';
 import { Input, Textarea } from '@components/base';
 
 const Container = styled.div`
+  margin-top: 80px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 `;

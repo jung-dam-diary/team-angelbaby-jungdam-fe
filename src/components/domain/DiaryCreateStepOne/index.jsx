@@ -3,6 +3,7 @@ import font from '@assets/fonts';
 import { Input } from '@components/base';
 
 const Container = styled.div`
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
 `;

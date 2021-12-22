@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
@@ -11,22 +10,25 @@ import {
 import { Button, Icon, ProgressBar } from '@components/base';
 import font from '@assets/fonts';
 import color from '@assets/colors';
-import DefaultContainer from '@styles/DefaultContainer';
 import useForm from '@hooks/useForm';
 import { postImageUpload } from '@api/postImageUpload';
 import { postDiaryCreate } from '@api/postDiaryCreate';
 import { getExistenceDiaryDate } from '@api/getExistenceDiaryDate';
 import getTodayDate from '../../common/utils/getTodayDate';
 
-const DefaultMarginTop = css`
-  margin: 80px 0 80px 0;
+const Conatainer = styled.div`
+  margin-top: 80px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ButtonStyle = {
+  marginTop: '50px',
   width: '100%',
+  height: '50px',
   boxSizing: 'border-box',
-  position: 'absolute',
-  bottom: '0',
 };
 
 const DiaryCreatePage = () => {
@@ -53,9 +55,6 @@ const DiaryCreatePage = () => {
 
       activeElement.focus();
       activeElement.scrollIntoView({ block: 'end' });
-
-      buttonRef.current.style.display =
-        buttonRef.current.style.display === 'none' ? 'block' : 'none';
     };
 
     window.addEventListener('resize', detectMobileKeyboard);
@@ -241,18 +240,13 @@ const DiaryCreatePage = () => {
   };
 
   return (
-    <DefaultContainer>
+    <Conatainer>
       <Header
         leftComponent={leftHeaderContent()}
         centerComponent={centerHeaderContent()}
       />
 
-      <ProgressBar
-        className="progress"
-        css={DefaultMarginTop}
-        totalStep={3}
-        currentStep={step}
-      />
+      <ProgressBar className="progress" totalStep={3} currentStep={step} />
 
       {renderDiaryCreateForm()}
 
@@ -264,7 +258,7 @@ const DiaryCreatePage = () => {
       >
         {step === 3 ? '확인' : '다음'}
       </Button>
-    </DefaultContainer>
+    </Conatainer>
   );
 };
 
