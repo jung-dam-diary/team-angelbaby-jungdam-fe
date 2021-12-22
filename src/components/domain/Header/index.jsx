@@ -26,8 +26,8 @@ const HeaderContainer = styled.header`
 const HeaderContent = styled.div`
   display: -webkit-flex;
   display: flex;
-  -webkit-justify-content: space-between;
   justify-content: space-between;
+  -webkit-flex: 1;
   flex: 1;
   justify-content: ${({ align }) => align};
 `;

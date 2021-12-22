@@ -91,14 +91,19 @@ const MemberInvitePage = () => {
       try {
         const {
           data: { data },
-        } = await searchUser(values.email);
+        } = await searchUser(albumId, values.email);
         setSearchInfo(data);
         setSearchVisible(true);
       } catch ({ response }) {
         const { data } = response;
-        data.message =
-          'NOT_EXIST_MEMBER' &&
-          alert('해당하는 이메일의 사용자를 찾을 수 없습니다.');
+        console.log(data);
+        data.message === 'NOT_EXIST_MEMBER'
+          ? alert('해당하는 이메일의 사용자를 찾을 수 없습니다.')
+          : data.message === 'DUPLICATION_PARTICIPANT_IN_ALBUM'
+          ? alert('이미 앨범에 참여중인 사용자입니다.')
+          : data.message === 'DUPLICATION_INVITATION_IN_ALBUM'
+          ? alert('이미 초대 요청을 보낸 사용자입니다.')
+          : alert('에러가 발생했습니다.');
         setSearchVisible(false);
       }
     },
