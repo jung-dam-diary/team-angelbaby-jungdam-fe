@@ -69,6 +69,20 @@ const SpinnerWrapper = styled.div`
   align-items: center;
 `;
 
+const MomentDefault = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  justify-content: center;
+  align-items: center;
+  ${font.content_18};
+  > span {
+    margin-top: 18px;
+    ${color.grey_50};
+    ${font.content_16};
+  }
+`;
+
 const SpecialMomentPage = () => {
   const { albumId } = useParams();
   const navigate = useNavigate();
@@ -141,6 +155,12 @@ const SpecialMomentPage = () => {
           <>
             <PageTitle>'{albumTitle}'의 기억들</PageTitle>
             <ContentWrapper>
+              {momentList.length === 0 && (
+                <MomentDefault>
+                  앨범의 특별한 순간이 없습니다!
+                  <span>일기를 북마크해서 특별한 순간을 만들어보세요.</span>
+                </MomentDefault>
+              )}
               <StyledSwiper
                 effect={'coverflow'}
                 grabCursor={true}
