@@ -18,26 +18,7 @@ const ErrorText = styled.span`
   color: red;
 `;
 
-const DiaryCreateStepOne = ({ onChange, date, dateError }) => {
-  const getTodayDate = () => {
-    let today = new Date();
-    let dd = today.getDate();
-    let mm = today.getMonth() + 1;
-    let yyyy = today.getFullYear();
-
-    if (dd < 10) {
-      dd += '0';
-    }
-
-    if (mm < 10) {
-      mm += '0';
-    }
-
-    today = `${yyyy}-${mm}-${dd}`;
-
-    return today;
-  };
-
+const DiaryCreateStepOne = ({ onChange, date, dateError, getTodayDate }) => {
   return (
     <Container>
       <Title>날짜를 선택해주세요.</Title>

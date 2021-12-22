@@ -16,6 +16,7 @@ import useForm from '@hooks/useForm';
 import { postImageUpload } from '@api/postImageUpload';
 import { postDiaryCreate } from '@api/postDiaryCreate';
 import { getExistenceDiaryDate } from '@api/getExistenceDiaryDate';
+import getTodayDate from '../../common/utils/getTodayDate';
 
 const DefaultMarginTop = css`
   margin: 80px 0 80px 0;
@@ -68,6 +69,13 @@ const DiaryCreatePage = () => {
         setInputErrors((values) => ({
           ...values,
           dateError: '날짜를 선택해주세요.',
+        }));
+
+        return;
+      } else if (date > getTodayDate()) {
+        setInputErrors((values) => ({
+          ...values,
+          dateError: '미래의 날짜에 해당하는 일기는 작성할 수 없습니다 !',
         }));
 
         return;
@@ -212,6 +220,7 @@ const DiaryCreatePage = () => {
         <DiaryCreateStepOne
           onChange={handleChange}
           date={date}
+          getTodayDate={getTodayDate}
           dateError={dateError}
         />
       );
