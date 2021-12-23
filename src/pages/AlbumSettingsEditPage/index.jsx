@@ -3,7 +3,14 @@ import styled from '@emotion/styled';
 import DefaultContainer from '@styles/DefaultContainer';
 import font from '@assets/fonts';
 import color from '@assets/colors';
-import { Input, Upload, Icon, Button, LoadingModal } from '@components/base';
+import {
+  Input,
+  Upload,
+  Icon,
+  Button,
+  LoadingModal,
+  Modal,
+} from '@components/base';
 import { DetailPageHeader } from '@components/domain';
 import { getAlbumInfo } from '@api/getAlbumInfo';
 import { putAlbumInfo } from '@api/putAlbumInfo';
@@ -86,12 +93,15 @@ const AlbumSettingsEditPage = () => {
 
   const [albumInfo, setAlbumInfo] = useState(intialState);
   const [image, setImage] = useState('');
+  const [modalContent, setModalContent] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
 
   const { values, isLoading, handleChange, handleSubmit } = useForm({
     initialValues: intialState,
     onSubmit: async () => {
       if (image === '' && values.title === '' && values.familyMotto === '') {
-        alert('변경할 앨범 정보가 없습니다.');
+        setModalContent('변경할 앨범 정보가 없습니다.');
+        handleModalVisible(true);
       } else {
         for (let value in albumInfo) {
           if (value === 'id') continue;
@@ -110,9 +120,9 @@ const AlbumSettingsEditPage = () => {
         }
 
         try {
-          const res = await putAlbumInfo(albumId, values);
-          res && alert('성공적으로 변경되었습니다.');
-          goBack();
+          await putAlbumInfo(albumId, values);
+          setModalContent('변경되었습니다.');
+          handleModalVisible(true);
         } catch ({ response }) {
           const { data } = response;
           console.log(data);
@@ -149,6 +159,19 @@ const AlbumSettingsEditPage = () => {
     navigate('../');
   };
 
+  const handleModalVisible = (visible, to) => {
+    if (visible) {
+      setModalVisible(true);
+    } else {
+      if (to === 'back') {
+        setModalVisible(false);
+        goBack();
+      } else {
+        setModalVisible(false);
+      }
+    }
+  };
+
   const EditLists = (list) =>
     list.map(({ name, text, placeholder, type }, index) => (
       <ContentWrapper key={index}>
@@ -183,6 +206,23 @@ const AlbumSettingsEditPage = () => {
       >
         확인
       </Button>
+      {modalContent === '변경되었습니다.' ? (
+        <Modal
+          visible={modalVisible}
+          onClose={() => handleModalVisible(false, 'back')}
+          selectable="confirm"
+        >
+          {modalContent}
+        </Modal>
+      ) : (
+        <Modal
+          visible={modalVisible}
+          onClose={() => handleModalVisible(false)}
+          selectable="confirm"
+        >
+          {modalContent}
+        </Modal>
+      )}
     </AlbumSettingsEditPageWrapper>
   );
 };
