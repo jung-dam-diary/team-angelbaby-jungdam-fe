@@ -6,8 +6,9 @@
     <h3>🎞 정답게 주고 받는 우리 가족 이야기 🎞</h3>
 </div>
 
-## 📌 배포 URL
+## 📌 배포 URL 및 메인 Repository
 - [정담 바로가기](https://www.jungdam.tk)
+- [통합 Repository](https://github.com/jung-dam-diary/)
 
 ## 🚆 Server Start
 1. `.env` 파일 작성 후, `REACT_APP_HOME, REACT_APP_API_URL, REACT_APP_HOME_URL, REACT_APP_OAUTH2_REDIRECT_URL` 환경 변수 설정 
