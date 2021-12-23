@@ -15,9 +15,6 @@
 2. `yarn install`
 3. `yarn start`
 
-## 👩‍💻DEMO
-- `GIF 준비중`
-
 ## 🧑‍💻 팀원 소개
 
 ### Front End Developer 🙋
