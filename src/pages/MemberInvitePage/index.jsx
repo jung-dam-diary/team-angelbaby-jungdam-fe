@@ -79,7 +79,7 @@ const MemberInvitePage = () => {
   };
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [searchVisible, setSearchVisible] = useState(false);
-  const [ModalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [searchInfo, setSearchInfo] = useState(initialState);
   const { albumId } = useParams();
   const navigate = useNavigate();
@@ -139,12 +139,12 @@ const MemberInvitePage = () => {
     navigate('../');
   };
 
-  const OpenModal = () => {
+  const openModal = () => {
     setModalVisible(true);
   };
 
-  const CloseModal = () => {
-    if (ModalVisible) {
+  const closeModal = () => {
+    if (modalVisible) {
       setModalVisible(false);
     }
   };
@@ -156,14 +156,14 @@ const MemberInvitePage = () => {
           targetMemberId: memberId,
         });
         alert('초대가 발송되었습니다.');
-        CloseModal(false);
+        closeModal(false);
         goBack();
       } catch ({ response }) {
         const { data } = response;
         data.message =
           'DUPLICATION_INVITATION_IN_ALBUM' &&
           alert('이미 초대 요청을 보낸 유저가 포함되어 있습니다.');
-        CloseModal(false);
+        closeModal(false);
       }
     });
   };
@@ -192,18 +192,18 @@ const MemberInvitePage = () => {
         </LoadingtWrapper>
       )}
       <ButtonWrapper>
-        <Button mode="primary" onClick={OpenModal}>
+        <Button mode="primary" onClick={openModal}>
           초대하기
         </Button>
       </ButtonWrapper>
       {selectedUsers.length === 0 ? (
-        <Modal visible={ModalVisible} onClose={CloseModal} selectable="confirm">
+        <Modal visible={modalVisible} onClose={closeModal} selectable="confirm">
           초대할 인원이 없습니다.
         </Modal>
       ) : (
         <Modal
-          visible={ModalVisible}
-          onClose={CloseModal}
+          visible={modalVisible}
+          onClose={closeModal}
           selectable="primary"
           onSubmit={() => handleInvite()}
         >
