@@ -9,6 +9,7 @@
 ## 📌 배포 URL 및 메인 Repository
 - [정담 바로가기](https://www.jungdam.tk)
 - [통합 Repository](https://github.com/jung-dam-diary/)
+- [발표 자료](https://www.figma.com/proto/4GiDm3XYDa96UiDZdujGxA/WireFrame?page-id=1342%3A2030&node-id=1367%3A1508&viewport=241%2C48%2C0.09&scaling=contain)
 
 ## 🚆 Server Start
 1. `.env` 파일 작성 후, `REACT_APP_HOME, REACT_APP_API_URL, REACT_APP_HOME_URL, REACT_APP_OAUTH2_REDIRECT_URL` 환경 변수 설정 
