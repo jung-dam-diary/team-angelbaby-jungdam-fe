@@ -84,6 +84,7 @@ const MemberInvitePage = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [searchVisible, setSearchVisible] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [inviteModalVisible, setInviteModalVisible] = useState(false);
   const [modalType, setModalType] = useState(initialType);
   const [searchInfo, setSearchInfo] = useState(initialState);
   const { albumId } = useParams();
@@ -122,6 +123,7 @@ const MemberInvitePage = () => {
     setSearchVisible(false);
   };
 
+  // 이런식으로 짜보기
   const searchedUser = (list) => (
     <SerchedListWrapper onClick={onSelectUser}>
       <span>{list.nickname}</span>
@@ -145,13 +147,16 @@ const MemberInvitePage = () => {
   };
 
   const openModal = (type, content) => {
-    setModalType({ type: type, content: content });
-    setModalVisible(true);
+    if (type) {
+      setModalType({ type: type, content: content });
+      setModalVisible(true);
+    } else setInviteModalVisible(true);
   };
 
   const closeModal = () => {
-    if (modalVisible) {
+    if (modalVisible || inviteModalVisible) {
       setModalVisible(false);
+      setInviteModalVisible(false);
       setModalType(initialType);
     }
   };
@@ -162,15 +167,15 @@ const MemberInvitePage = () => {
         await inviteUser(albumId, {
           targetMemberId: memberId,
         });
-        alert('초대가 발송되었습니다.');
-        closeModal(false);
+        openModal('invite', '초대가 발송되었습니다.');
+        closeModal();
         goBack();
       } catch ({ response }) {
         const { data } = response;
         data.message =
           'DUPLICATION_INVITATION_IN_ALBUM' &&
           openModal('error', '이미 초대 요청을 보낸 유저가 포함되어 있습니다.');
-        closeModal(false);
+        closeModal();
       }
     });
   };
@@ -199,36 +204,44 @@ const MemberInvitePage = () => {
         </LoadingtWrapper>
       )}
       <ButtonWrapper>
-        <Button mode="primary" onClick={() => openModal('invite')}>
+        <Button mode="primary" onClick={() => openModal()}>
           초대하기
         </Button>
       </ButtonWrapper>
-      {modalType.type === 'invite' && selectedUsers.length === 0 ? (
-        <Modal
-          visible={modalVisible}
-          onClose={() => closeModal()}
-          selectable="confirm"
-        >
-          초대할 인원이 없습니다.
-        </Modal>
-      ) : (
-        <Modal
-          visible={modalVisible}
-          onClose={() => closeModal()}
-          selectable="primary"
-          onSubmit={() => handleInvite()}
-        >
-          총 {selectedUsers.length}명의 인원을 <br /> 초대하시겠습니까?
-        </Modal>
-      )}
-      {modalType.type === 'error' && (
+      {inviteModalVisible ? (
+        selectedUsers.length === 0 ? (
+          <Modal
+            visible={inviteModalVisible}
+            onClose={() => closeModal()}
+            selectable="confirm"
+          >
+            초대할 인원이 없습니다.
+          </Modal>
+        ) : (
+          <Modal
+            visible={inviteModalVisible}
+            onClose={() => closeModal()}
+            selectable="primary"
+            onSubmit={() => handleInvite()}
+          >
+            총 {selectedUsers.length}명의 인원을 <br /> 초대하시겠습니까?
+          </Modal>
+        )
+      ) : modalType.type === 'error' ? (
         <Modal
           visible={modalVisible}
           onClose={() => closeModal()}
           selectable="confirm"
           children={modalType.content}
         />
-      )}
+      ) : modalType.type === 'invite' ? (
+        <Modal
+          visible={modalVisible}
+          onClose={() => closeModal()}
+          selectable="confirm"
+          children={modalType.content}
+        />
+      ) : null}
     </MemberInvitePageWrapper>
   );
 };
